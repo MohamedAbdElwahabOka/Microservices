@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Microservices Architecture | شرح تفاعلي</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
     <!-- ============================================================ -->
@@ -28,6 +32,7 @@
         </div>
         <div class="nav-links">
             <a href="#hero">البداية</a>
+            <a href="#glossary">📖 مصطلحات</a>
             <a href="#monolithic">Monolithic</a>
             <a href="#why">ليه؟</a>
             <a href="#architecture">المعمارية</a>
@@ -68,11 +73,61 @@
                 <div class="hero-node node-bottom-left"><i class="fa-solid fa-bell"></i></div>
                 <div class="hero-node node-bottom-right"><i class="fa-solid fa-box-open"></i></div>
                 <svg class="hero-svg" viewBox="0 0 300 300">
-                    <line class="hero-line" x1="150" y1="150" x2="75" y2="75"/>
-                    <line class="hero-line" x1="150" y1="150" x2="225" y2="75"/>
-                    <line class="hero-line" x1="150" y1="150" x2="75" y2="225"/>
-                    <line class="hero-line" x1="150" y1="150" x2="225" y2="225"/>
+                    <line class="hero-line" x1="150" y1="150" x2="75" y2="75" />
+                    <line class="hero-line" x1="150" y1="150" x2="225" y2="75" />
+                    <line class="hero-line" x1="150" y1="150" x2="75" y2="225" />
+                    <line class="hero-line" x1="150" y1="150" x2="225" y2="225" />
                 </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- GLOSSARY SECTION (للمبتدئين تماماً)                            -->
+    <!-- ============================================================ -->
+    <section id="glossary" class="section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">📖 لو أول مرة تسمع عن الموضوع</span>
+                <h2>خمس كلمات لازم تعرفها الأول</h2>
+                <p>لو مش لسه فاهم المصطلحات دي، اقرأها هنا بسرعة قبل ما نكمل. لو عارفها خلاص، تقدر تنزل على طول لـ
+                    Monolithic.</p>
+            </div>
+            <div class="glossary-grid reveal">
+                <div class="glossary-card">
+                    <div class="glossary-icon">🖥️➡️🖨️</div>
+                    <h4>Client - Server</h4>
+                    <p>الـ <strong>Client</strong> هو أي حاجة بتطلب خدمة (موبايلك، المتصفح بتاعك). الـ
+                        <strong>Server</strong> هو الجهاز اللي بيرد على الطلب ده وبيديك الإجابة. زي ما تطلب أكل من ويتر
+                        (Client) وهو يجيبه من المطبخ (Server).</p>
+                </div>
+                <div class="glossary-card">
+                    <div class="glossary-icon">📨</div>
+                    <h4>API & HTTP Request</h4>
+                    <p>الـ <strong>API</strong> هو "قائمة الطلبات" المتاحة اللي أي برنامج تاني يقدر يطلبها من السيرفر
+                        بتاعك. الـ <strong>HTTP Request</strong> هو "الرسالة" الفعلية اللي بتتبعت لما تطلب حاجة من الـ
+                        API ده (زي: GET /api/orders).</p>
+                </div>
+                <div class="glossary-card">
+                    <div class="glossary-icon">🔌</div>
+                    <h4>Port (المنفذ)</h4>
+                    <p>لو السيرفر جهاز واحد بيشغّل أكتر من خدمة، الـ Port هو "رقم الباب" اللي كل خدمة بتسمع منه. مثلاً
+                        Orders Service بتسمع على الباب 3002، وInventory على الباب 3003 — كده أي طلب يعرف يوصل للخدمة
+                        الصح.</p>
+                </div>
+                <div class="glossary-card">
+                    <div class="glossary-icon">🧠</div>
+                    <h4>Stateless (بلا ذاكرة)</h4>
+                    <p>يعني الخدمة "منساها" أي حاجة بعد ما تخلص الطلب. كل Request بييجي لازم يجيب كل المعلومات اللي
+                        محتاجها معاه. الفايدة؟ تقدر تشغّل 5 نسخ من نفس الخدمة، وأي نسخة تقدر تخدم أي طلب من غير ما
+                        "تفتكر" حاجة عن الطلبات اللي قبلها.</p>
+                </div>
+                <div class="glossary-card">
+                    <div class="glossary-icon">🗂️</div>
+                    <h4>Database (قاعدة البيانات)</h4>
+                    <p>المكان اللي بيتخزن فيه الداتا بشكل دائم (مش زي الذاكرة اللي بتتمسح لو السيرفر قفل). في المقال ده
+                        هتشوف أنواع مختلفة: MongoDB, PostgreSQL, MySQL, Redis — كل نوع بيتفصل حسب طبيعة الداتا.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -85,7 +140,8 @@
             <div class="section-header reveal">
                 <span class="section-tag danger">الطريقة القديمة</span>
                 <h2>الـ <span class="glow-text-red">Monolithic</span>: الروبوت العملاق</h2>
-                <p>تخيل سوبر ماركت كامل بيديره <strong>روبوت واحد</strong> بيعمل كل حاجة: بيحاسب، بيرص، بينضف، بيراقب. هيحصل إيه لو عطل؟</p>
+                <p>تخيل سوبر ماركت كامل بيديره <strong>روبوت واحد</strong> بيعمل كل حاجة: بيحاسب، بيرص، بينضف، بيراقب.
+                    هيحصل إيه لو عطل؟</p>
             </div>
 
             <div class="mono-layout reveal">
@@ -198,7 +254,9 @@
             <div class="section-header reveal">
                 <span class="section-tag">تصميم السيرفر</span>
                 <h2>تقسيمة الخوادم وقواعد البيانات 🗂️</h2>
-                <p>القاعدة الذهبية: <strong>كل خدمة ليها قاعدة بياناتها الخاصة</strong>. محدش بيدخل على داتابيز التاني مباشرةً.</p>
+                <p>دلوقتي هنشوف مثال عملي واحد بيجمع كل الأفكار اللي اتكلمنا عنها فوق: سوبر ماركت أونلاين مقسّم لخدمات،
+                    كل خدمة بلغتها وقاعدة بياناتها. القاعدة الذهبية: <strong>كل خدمة ليها قاعدة بياناتها
+                        الخاصة</strong>. محدش بيدخل على داتابيز التاني مباشرةً.</p>
             </div>
 
             <!-- Static Architecture Diagram (SVG-based) -->
@@ -307,6 +365,18 @@
 
                     <!-- SVG OVERLAY for animated lines -->
                     <svg class="arch-svg" id="archSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+                </div>
+            </div>
+
+            <div class="faq-tip reveal" style="margin-top:28px;">
+                <i class="fa-solid fa-circle-question"></i>
+                <div>
+                    <strong>سؤال بديهي: طيب إزاي Orders Service عارفة تكلم "inventory-service" وكأنه اسم
+                        موقع؟</strong><br>
+                    ده اسمه <strong>Service Discovery</strong>. لما تشغّل الخدمات كلها بـ Docker Compose، Docker بيعمل
+                    تلقائياً "دليل تليفونات" داخلي (DNS) بيربط اسم كل خدمة بعنوانها الداخلي. يعني لما تكتب
+                    <code>http://inventory-service:3003</code> جوا الكود، Docker هو اللي بيترجم الاسم ده لعنوان الـ
+                    Container الصحيح — مش لازم تعرف IP ثابت لأي خدمة.
                 </div>
             </div>
         </div>
@@ -435,10 +505,12 @@
                                         <span class="comment"># تسجيل الدخول (Node.js)</span>
                                         <ul>
                                             <li><i class="fa-solid fa-folder col-muted"></i> controllers/</li>
-                                            <li><i class="fa-solid fa-folder col-muted"></i> models/ <span class="comment"># User.model.js</span></li>
+                                            <li><i class="fa-solid fa-folder col-muted"></i> models/ <span
+                                                    class="comment"># User.model.js</span></li>
                                             <li><i class="fa-solid fa-folder col-muted"></i> routes/</li>
                                             <li><i class="fa-brands fa-node-js col-green"></i> index.js</li>
-                                            <li><i class="fa-solid fa-file col-yellow"></i> .env <span class="comment"># JWT_SECRET, MONGO_URI</span></li>
+                                            <li><i class="fa-solid fa-file col-yellow"></i> .env <span class="comment">#
+                                                    JWT_SECRET, MONGO_URI</span></li>
                                             <li><i class="fa-brands fa-docker col-blue"></i> Dockerfile</li>
                                         </ul>
                                     </li>
@@ -450,7 +522,8 @@
                                             <li><i class="fa-solid fa-folder col-muted"></i> controllers/</li>
                                             <li><i class="fa-solid fa-folder col-muted"></i> models/</li>
                                             <li><i class="fa-brands fa-node-js col-green"></i> index.js</li>
-                                            <li><i class="fa-solid fa-file col-yellow"></i> .env <span class="comment"># POSTGRES_URI</span></li>
+                                            <li><i class="fa-solid fa-file col-yellow"></i> .env <span class="comment">#
+                                                    POSTGRES_URI</span></li>
                                             <li><i class="fa-brands fa-docker col-blue"></i> Dockerfile</li>
                                         </ul>
                                     </li>
@@ -500,7 +573,8 @@
                     <div class="note-card glass-card">
                         <div class="note-icon">🐳</div>
                         <h4>docker-compose.yml</h4>
-                        <p>ده الملف السحري اللي بيشغل كل الخدمات (5 سيرفرات + 5 داتابيزات) بأمر واحد: <code>docker-compose up</code></p>
+                        <p>ده الملف السحري اللي بيشغل كل الخدمات (5 سيرفرات + 5 داتابيزات) بأمر واحد:
+                            <code>docker-compose up</code></p>
                     </div>
                     <div class="note-card glass-card">
                         <div class="note-icon">🔒</div>
@@ -510,7 +584,8 @@
                     <div class="note-card glass-card">
                         <div class="note-icon">🗣️</div>
                         <h4>لغات مختلفة!</h4>
-                        <p>Auth بـ Node.js، Inventory بـ Python، Payment بـ Go. كل فريق بيختار لغته. ده من أقوى مزايا الـ Microservices.</p>
+                        <p>Auth بـ Node.js، Inventory بـ Python، Payment بـ Go. كل فريق بيختار لغته. ده من أقوى مزايا
+                            الـ Microservices.</p>
                     </div>
                 </div>
             </div>
@@ -831,6 +906,16 @@ volumes:
   inventory_data:
   payment_data:
   notif_data:</code></pre>
+                    <div class="warning-box" dir="rtl">
+                        <div class="warning-icon">⚠️</div>
+                        <div>
+                            <strong>ملاحظة مهمة عن الأمان:</strong> في الملف فوق، الـ Passwords والـ JWT_SECRET مكتوبين
+                            صراحة (زي <code>JWT_SECRET=super_secret_key</code>) عشان الشرح بس. في مشروع حقيقي، ده
+                            <strong>خطأ فادح</strong> — لازم تحط القيم دي في ملف <code>.env</code> منفصل (ومتضيفوش على
+                            Git)، أو تستخدم أداة إدارة أسرار زي <strong>Docker Secrets</strong> أو <strong>AWS Secrets
+                                Manager</strong>.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -846,7 +931,8 @@ volumes:
             <div class="section-header reveal">
                 <span class="section-tag">🐳 لازم تعرفه</span>
                 <h2>الـ <span class="glow-text-docker">Docker</span> وعلاقته بالـ Microservices</h2>
-                <p>لو الـ Microservices هي "الفكرة"، فالـ Docker هو "التنفيذ". من غير Docker، شغيل 5 خدمات على نفس الجهاز هيبقى nightmare حقيقية!</p>
+                <p>لو الـ Microservices هي "الفكرة"، فالـ Docker هو "التنفيذ". من غير Docker، شغيل 5 خدمات على نفس
+                    الجهاز هيبقى nightmare حقيقية!</p>
             </div>
 
             <!-- The Problem without Docker -->
@@ -883,7 +969,8 @@ volumes:
                 <div class="rescue-header">
                     <div class="rescue-badge">🐳 Docker الحل</div>
                     <h3>كل خدمة في "صندوق" (Container) معزول تماماً</h3>
-                    <p>الـ Container بيشيل <strong>الخدمة + كل اللي تحتاجه</strong> (اللغة + المكتبات + الإعدادات) جوا صندوق واحد مضغوط. الصندوق ده بيشتغل بنفس الطريقة في أي مكان.</p>
+                    <p>الـ Container بيشيل <strong>الخدمة + كل اللي تحتاجه</strong> (اللغة + المكتبات + الإعدادات) جوا
+                        صندوق واحد مضغوط. الصندوق ده بيشتغل بنفس الطريقة في أي مكان.</p>
                 </div>
                 <div class="containers-visual">
                     <div class="container-box box-auth">
@@ -932,36 +1019,46 @@ volumes:
 
             <!-- Why Docker + Microservices -->
             <div class="docker-why reveal">
-                <h3 class="text-center" style="margin-bottom:32px; font-size:1.8rem;">ليه Docker + Microservices = 💪</h3>
+                <h3 class="text-center" style="margin-bottom:32px; font-size:1.8rem;">ليه Docker + Microservices = 💪
+                </h3>
                 <div class="docker-benefits-grid">
                     <div class="docker-benefit glass-card">
                         <div class="benefit-icon" style="color:#06B6D4;">📦</div>
                         <h4>العزل التام (Isolation)</h4>
-                        <p>كل خدمة في صندوقها، لو المخزن (Inventory Container) هنج، باقي الـ Containers شغالة. وتقدر تعمل <code>docker restart inventory</code> من غير ما حاجة تاني تتأثر.</p>
+                        <p>كل خدمة في صندوقها، لو المخزن (Inventory Container) هنج، باقي الـ Containers شغالة. وتقدر
+                            تعمل <code>docker restart inventory</code> من غير ما حاجة تاني تتأثر.</p>
                     </div>
                     <div class="docker-benefit glass-card">
                         <div class="benefit-icon" style="color:#10B981;">🔄</div>
                         <h4>الـ Scaling بسهولة</h4>
-                        <p>الكاشير (Orders) عليه ضغط؟ في ثانية واحدة تشغّل نسخ زيادة:<br><code>docker-compose up --scale orders=5</code><br>وبكده بيبقى عندك 5 Containers بيشتغلوا في نفس الوقت!</p>
+                        <p>الكاشير (Orders) عليه ضغط؟ في ثانية واحدة تشغّل نسخ
+                            زيادة:<br><code>docker-compose up --scale orders=5</code><br>وبكده بيبقى عندك 5 Containers
+                            بيشتغلوا في نفس الوقت! (ده ممكن لأن الخدمة <strong>Stateless</strong> — أي نسخة تقدر تخدم أي
+                            طلب من غير ما "تفتكر" حاجة).</p>
                     </div>
                     <div class="docker-benefit glass-card">
                         <div class="benefit-icon" style="color:#8B5CF6;">🚀</div>
                         <h4>Deploy بسرعة البرق</h4>
-                        <p>عملت تعديل في الـ Payment Service بس؟ ابني الـ Image الخاص بيها لوحده وانشره:<br><code>docker build -t payment .</code><br><code>docker push payment</code><br>بدون ما تمس باقي الخدمات.</p>
+                        <p>عملت تعديل في الـ Payment Service بس؟ ابني الـ Image الخاص بيها لوحده
+                            وانشره:<br><code>docker build -t payment .</code><br><code>docker push payment</code><br>بدون
+                            ما تمس باقي الخدمات.</p>
                     </div>
                     <div class="docker-benefit glass-card">
                         <div class="benefit-icon" style="color:#F59E0B;">🌍</div>
                         <h4>بيشتغل في أي مكان</h4>
-                        <p>اشتغل على الـ Mac، Staging على Ubuntu، Production على AWS. نفس الـ Image، نفس النتيجة. خلصت مشكلة "عندي بيشتغل"!</p>
+                        <p>اشتغل على الـ Mac، Staging على Ubuntu، Production على AWS. نفس الـ Image، نفس النتيجة. خلصت
+                            مشكلة "عندي بيشتغل"!</p>
                     </div>
                 </div>
             </div>
 
             <!-- Dockerfile Explained -->
             <div class="dockerfile-section reveal" dir="ltr">
-                <h3 class="text-center" style="margin-bottom:8px; direction:rtl; font-size:1.8rem;">ازاي بنكتب <span class="glow-text">Dockerfile</span>؟</h3>
-                <p class="text-center subtitle" style="direction:rtl;">الـ Dockerfile هو "وصفة" بناء الـ Container. زي ما المطبخ عنده وصفة لكل أكلة.</p>
-                
+                <h3 class="text-center" style="margin-bottom:8px; direction:rtl; font-size:1.8rem;">ازاي بنكتب <span
+                        class="glow-text">Dockerfile</span>؟</h3>
+                <p class="text-center subtitle" style="direction:rtl;">الـ Dockerfile هو "وصفة" بناء الـ Container. زي
+                    ما المطبخ عنده وصفة لكل أكلة.</p>
+
                 <div class="dockerfile-tabs">
                     <div class="df-tab-buttons">
                         <button class="df-tab-btn active" onclick="showDfTab('df-node')">Node.js (Auth)</button>
@@ -1082,7 +1179,8 @@ volumes:
                     <div class="cmd-card">
                         <div class="cmd-title">🚀 شغّل كل الخدمات</div>
                         <code>docker-compose up -d</code>
-                        <div class="cmd-desc" dir="rtl">بيشغّل كل الـ Containers اللي في docker-compose.yml في الخلفية</div>
+                        <div class="cmd-desc" dir="rtl">بيشغّل كل الـ Containers اللي في docker-compose.yml في الخلفية
+                        </div>
                     </div>
                     <div class="cmd-card">
                         <div class="cmd-title">📜 شوف الـ Logs</div>
@@ -1107,14 +1205,16 @@ volumes:
                     <div class="cmd-card">
                         <div class="cmd-title">⛔ وقّف كل حاجة</div>
                         <code>docker-compose down</code>
-                        <div class="cmd-desc" dir="rtl">وقّف وامسح كل الـ Containers (البيانات بتتحفظ في الـ Volumes)</div>
+                        <div class="cmd-desc" dir="rtl">وقّف وامسح كل الـ Containers (البيانات بتتحفظ في الـ Volumes)
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Docker workflow visual -->
             <div class="docker-workflow reveal">
-                <h3 class="text-center" style="margin-bottom:32px; font-size:1.8rem;">رحلة الكود من جهازك للـ Production 🗺️</h3>
+                <h3 class="text-center" style="margin-bottom:32px; font-size:1.8rem;">رحلة الكود من جهازك للـ Production
+                    🗺️</h3>
                 <div class="workflow-steps">
                     <div class="wf-step">
                         <div class="wf-icon">📝</div>
@@ -1146,6 +1246,15 @@ volumes:
                         <div class="wf-sub">شغّل على Production</div>
                     </div>
                 </div>
+                <div class="faq-tip" style="margin-top:24px;">
+                    <i class="fa-solid fa-robot"></i>
+                    <div>
+                        <strong>في الواقع، الخطوات دي مش بتتعمل بإيدك كل مرة!</strong> عادةً بتتعمل أوتوماتيك عن طريق
+                        <strong>CI/CD Pipeline</strong> (زي GitHub Actions أو GitLab CI): إنت بس بتعمل
+                        <code>git push</code>، والنظام لوحده بيعمل build وtest وpush وdeploy من غير تدخل يدوي. ده بيقلل
+                        الأخطاء البشرية وبيسرّع النشر بشكل كبير.
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -1175,15 +1284,19 @@ volumes:
                     </div>
                     <div class="faq-answer">
                         <div class="faq-answer-inner">
-                            <p>❌ <strong>لأ، ده غلط شائع جداً!</strong> الـ Microservices مش مناسبة للمشاريع الصغيرة أو الـ Startups في أولها. السبب؟</p>
+                            <p>❌ <strong>لأ، ده غلط شائع جداً!</strong> الـ Microservices مش مناسبة للمشاريع الصغيرة أو
+                                الـ Startups في أولها. السبب؟</p>
                             <ul>
-                                <li>الـ Microservices بتزود التعقيد بشكل هائل (Network calls، Distributed logging، Service discovery).</li>
+                                <li>الـ Microservices بتزود التعقيد بشكل هائل (Network calls، Distributed logging،
+                                    Service discovery).</li>
                                 <li>لو مش عندك فريق كبير ومتخصص، هتتعب من الـ overhead بتاع الـ DevOps.</li>
-                                <li>شركات زي Amazon و Netflix نفسها <strong>بدأت Monolithic</strong> وبعدين انتقلت للـ Microservices لما كبرت.</li>
+                                <li>شركات زي Amazon و Netflix نفسها <strong>بدأت Monolithic</strong> وبعدين انتقلت للـ
+                                    Microservices لما كبرت.</li>
                             </ul>
                             <div class="faq-tip">
                                 <i class="fa-solid fa-lightbulb"></i>
-                                <strong>الـ Rule of Thumb:</strong> ابدأ Monolithic، لما الفريق يكبر وجزء من التطبيق يحتاج Scaling مستقل، وقتها افصله كـ Microservice.
+                                <strong>الـ Rule of Thumb:</strong> ابدأ Monolithic، لما الفريق يكبر وجزء من التطبيق
+                                يحتاج Scaling مستقل، وقتها افصله كـ Microservice.
                             </div>
                         </div>
                     </div>
@@ -1205,19 +1318,22 @@ volumes:
                                 <div class="faq-method">
                                     <div class="method-icon">🌐</div>
                                     <h4>REST API (HTTP)</h4>
-                                    <p>الأشهر والأبسط. Service بتكلم التانية عن طريق HTTP request زي ما الموبايل بيكلم السيرفر. المشكلة: لو الـ Service التانية بطيئة، المستدعي هيفضل مستنيها.</p>
+                                    <p>الأشهر والأبسط. Service بتكلم التانية عن طريق HTTP request زي ما الموبايل بيكلم
+                                        السيرفر. المشكلة: لو الـ Service التانية بطيئة، المستدعي هيفضل مستنيها.</p>
                                     <code>GET http://inventory-service/api/stock/7</code>
                                 </div>
                                 <div class="faq-method">
                                     <div class="method-icon">📨</div>
                                     <h4>Message Queue (RabbitMQ / Kafka)</h4>
-                                    <p>Service بتبعت رسالة في "صندوق بريد" (Queue)، والـ Service التانية بتاخدها لما تجهز. الإرسال Async ومش محتاج رد فوري. الأمثل للإشعارات والأحداث.</p>
+                                    <p>Service بتبعت رسالة في "صندوق بريد" (Queue)، والـ Service التانية بتاخدها لما
+                                        تجهز. الإرسال Async ومش محتاج رد فوري. الأمثل للإشعارات والأحداث.</p>
                                     <code>queue.publish("order.created", orderData)</code>
                                 </div>
                                 <div class="faq-method">
                                     <div class="method-icon">⚡</div>
                                     <h4>gRPC</h4>
-                                    <p>بروتوكول من Google. أسرع بكتير من REST لأنه بيستخدم Binary format بدل JSON. بيستخدم بشكل كبير في internal service-to-service communication.</p>
+                                    <p>بروتوكول من Google. أسرع بكتير من REST لأنه بيستخدم Binary format بدل JSON.
+                                        بيستخدم بشكل كبير في internal service-to-service communication.</p>
                                     <code>stub.CheckStock(request)</code>
                                 </div>
                             </div>
@@ -1239,16 +1355,26 @@ volumes:
                             <p>ده من أهم التحديات. في <strong>3 Patterns</strong> مشهورين لحل المشكلة دي:</p>
                             <div class="faq-patterns">
                                 <div class="faq-pattern">
-                                    <span class="pattern-badge" style="background:rgba(239,68,68,.15);border-color:#ef4444;color:#ef4444;">Circuit Breaker</span>
-                                    <p>زي القاطع الكهربائي في بيتك. لو Service استدعيت 5 مرات وفشلت، الـ Circuit Breaker "يفتح" ويوقف الاستدعاء ويرجع response جاهز بدل ما يستنى ويعطّل التطبيق كله. بعد وقت معين، بيجرب يوصل تاني.</p>
+                                    <span class="pattern-badge"
+                                        style="background:rgba(239,68,68,.15);border-color:#ef4444;color:#ef4444;">Circuit
+                                        Breaker</span>
+                                    <p>زي القاطع الكهربائي في بيتك. لو Service استدعيت 5 مرات وفشلت، الـ Circuit Breaker
+                                        "يفتح" ويوقف الاستدعاء ويرجع response جاهز بدل ما يستنى ويعطّل التطبيق كله. بعد
+                                        وقت معين، بيجرب يوصل تاني.</p>
                                 </div>
                                 <div class="faq-pattern">
-                                    <span class="pattern-badge" style="background:rgba(245,158,11,.15);border-color:#f59e0b;color:#f59e0b;">Retry with Backoff</span>
-                                    <p>لو الاستدعاء فشل، جرب تاني بعد ثانية، وتاني بعد 2 ثانية، وتاني بعد 4 ثانية. مش هتلحق على Service لقعانة ومش هتضيع وقت بدون داعي.</p>
+                                    <span class="pattern-badge"
+                                        style="background:rgba(245,158,11,.15);border-color:#f59e0b;color:#f59e0b;">Retry
+                                        with Backoff</span>
+                                    <p>لو الاستدعاء فشل، جرب تاني بعد ثانية، وتاني بعد 2 ثانية، وتاني بعد 4 ثانية. مش
+                                        هتلحق على Service لقعانة ومش هتضيع وقت بدون داعي.</p>
                                 </div>
                                 <div class="faq-pattern">
-                                    <span class="pattern-badge" style="background:rgba(16,185,129,.15);border-color:#10b981;color:#10b981;">Fallback</span>
-                                    <p>لو Service المنتجات واقعة، ارجع بـ "cached data" قديم أو رسالة "المنتجات غير متاحة مؤقتاً" بدل ما التطبيق كله يقع. المستخدم هيحس بتأثير بسيط مش بـ Error ضخم.</p>
+                                    <span class="pattern-badge"
+                                        style="background:rgba(16,185,129,.15);border-color:#10b981;color:#10b981;">Fallback</span>
+                                    <p>لو Service المنتجات واقعة، ارجع بـ "cached data" قديم أو رسالة "المنتجات غير
+                                        متاحة مؤقتاً" بدل ما التطبيق كله يقع. المستخدم هيحس بتأثير بسيط مش بـ Error ضخم.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -1266,16 +1392,20 @@ volumes:
                     </div>
                     <div class="faq-answer">
                         <div class="faq-answer-inner">
-                            <p>ده من أصعب حاجات الـ Microservices. تخيل إن request من المستخدم عدى على 5 Services ومش عارف في أنهي واحدة حصل الـ bug. الحل بيبقى <strong>Distributed Tracing</strong>.</p>
-                            <p>الفكرة: كل request بييجي بياخد <strong>Trace ID فريد</strong> (زي رقم الأوردر)، وكل service بتبعت اللوج بالـ ID ده لـ System مركزي.</p>
+                            <p>ده من أصعب حاجات الـ Microservices. تخيل إن request من المستخدم عدى على 5 Services ومش
+                                عارف في أنهي واحدة حصل الـ bug. الحل بيبقى <strong>Distributed Tracing</strong>.</p>
+                            <p>الفكرة: كل request بييجي بياخد <strong>Trace ID فريد</strong> (زي رقم الأوردر)، وكل
+                                service بتبعت اللوج بالـ ID ده لـ System مركزي.</p>
                             <div class="faq-tools-grid">
                                 <div class="faq-tool">
                                     <strong>📊 ELK Stack</strong>
-                                    <small>Elasticsearch + Logstash + Kibana — بيجمع اللوجات من كل الخدمات في مكان واحد</small>
+                                    <small>Elasticsearch + Logstash + Kibana — بيجمع اللوجات من كل الخدمات في مكان
+                                        واحد</small>
                                 </div>
                                 <div class="faq-tool">
                                     <strong>🔍 Jaeger / Zipkin</strong>
-                                    <small>بيرسم لك رحلة الـ Request خطوة بخطوة وبيقولك كل Service اخدت كام millisecond</small>
+                                    <small>بيرسم لك رحلة الـ Request خطوة بخطوة وبيقولك كل Service اخدت كام
+                                        millisecond</small>
                                 </div>
                                 <div class="faq-tool">
                                     <strong>📈 Grafana + Prometheus</strong>
@@ -1297,13 +1427,18 @@ volumes:
                     </div>
                     <div class="faq-answer">
                         <div class="faq-answer-inner">
-                            <p>الـ <strong>API Gateway</strong> هو "حارس البوابة" اللي الـ Client بيكلمه بدل ما يكلم كل Service على حدة. وده بيضيف:</p>
+                            <p>الـ <strong>API Gateway</strong> هو "حارس البوابة" اللي الـ Client بيكلمه بدل ما يكلم كل
+                                Service على حدة. وده بيضيف:</p>
                             <ul>
-                                <li>🔑 <strong>Authentication مركزي:</strong> بتتحقق من الـ Token مرة واحدة في الـ Gateway بدل ما كل Service تعمل نفس الكلام.</li>
-                                <li>⚖️ <strong>Load Balancing:</strong> لو عندك 3 نسخ من Orders Service، الـ Gateway هو اللي بيوزع الطلبات بينهم.</li>
-                                <li>🛡️ <strong>Rate Limiting:</strong> يمنع حد ما يعمل 1000 request في الثانية ويضرب السيرفر.</li>
+                                <li>🔑 <strong>Authentication مركزي:</strong> بتتحقق من الـ Token مرة واحدة في الـ
+                                    Gateway بدل ما كل Service تعمل نفس الكلام.</li>
+                                <li>⚖️ <strong>Load Balancing:</strong> لو عندك 3 نسخ من Orders Service، الـ Gateway هو
+                                    اللي بيوزع الطلبات بينهم.</li>
+                                <li>🛡️ <strong>Rate Limiting:</strong> يمنع حد ما يعمل 1000 request في الثانية ويضرب
+                                    السيرفر.</li>
                                 <li>📝 <strong>Logging مركزي:</strong> كل Request بيتسجل في مكان واحد.</li>
-                                <li>🔀 <strong>Routing:</strong> بيحول <code>/api/orders</code> لسيرفر الأوردرات و<code>/api/auth</code> لسيرفر الـ Auth.</li>
+                                <li>🔀 <strong>Routing:</strong> بيحول <code>/api/orders</code> لسيرفر الأوردرات
+                                    و<code>/api/auth</code> لسيرفر الـ Auth.</li>
                             </ul>
                             <div class="faq-tip">
                                 <i class="fa-solid fa-star"></i>
@@ -1324,7 +1459,14 @@ volumes:
                     </div>
                     <div class="faq-answer">
                         <div class="faq-answer-inner">
-                            <p>ده من أصعب الأسئلة في الـ Microservices! في الـ Monolithic، عندنا <strong>Database Transaction</strong> بتضمن إما كل حاجة تتعمل أو ما اتعملش حاجة (All or Nothing). في الـ Microservices ده صعب لأن كل خدمة ليها داتابيز مستقلة. الحل الشائع هو <strong>Saga Pattern</strong>:</p>
+                            <p>ده من أصعب الأسئلة في الـ Microservices! في الـ Monolithic، عندنا <strong>Database
+                                    Transaction</strong> بتضمن إما كل حاجة تتعمل أو ما اتعملش حاجة (All or Nothing)
+                                وبتحصل فوراً. في الـ Microservices ده صعب لأن كل خدمة ليها داتابيز مستقلة، فمفيش
+                                transaction واحدة تشمل الكل.</p>
+                            <p>الحل هنا مبني على فكرة اسمها <strong>Eventual Consistency (الاتساق النهائي)</strong>:
+                                يعني بدل ما الداتا تتزامن فوراً في نفس اللحظة، بتوصل لحالة متسقة "بعد شوية" عن طريق
+                                سلسلة خطوات، وكل خطوة فشلت بيتعمل لها "تراجع" (Rollback) بخطوة عكسية. الـ Pattern الشائع
+                                لتنظيم السلسلة دي اسمه <strong>Saga Pattern</strong>:</p>
                             <div class="faq-saga">
                                 <div class="saga-step success">
                                     <span class="saga-num">1</span>
@@ -1399,7 +1541,9 @@ volumes:
                             </div>
                             <div class="faq-tip">
                                 <i class="fa-solid fa-map-signs"></i>
-                                <strong>الخلاصة:</strong> ابدأ بـ Docker Compose. لما تروح للـ Production الجاد وعندك ملايين users، وقتها انتقل لـ Kubernetes أو استخدم managed service زي <strong>AWS ECS / Google Cloud Run</strong>.
+                                <strong>الخلاصة:</strong> ابدأ بـ Docker Compose. لما تروح للـ Production الجاد وعندك
+                                ملايين users، وقتها انتقل لـ Kubernetes أو استخدم managed service زي <strong>AWS ECS /
+                                    Google Cloud Run</strong>.
                             </div>
                         </div>
                     </div>
@@ -1420,7 +1564,8 @@ volumes:
                             <div class="faq-test-levels">
                                 <div class="test-level" style="border-color:#3b82f6">
                                     <div class="test-level-header">
-                                        <span class="test-badge" style="background:rgba(59,130,246,.2);color:#3b82f6">Unit Tests</span>
+                                        <span class="test-badge"
+                                            style="background:rgba(59,130,246,.2);color:#3b82f6">Unit Tests</span>
                                         <span class="test-scope">بتختبر Function واحدة</span>
                                     </div>
                                     <p>تختبر كل function في العزل الكامل. سريع جداً وبيشتغل بدون داتابيز أو Network.</p>
@@ -1428,25 +1573,32 @@ volumes:
                                 </div>
                                 <div class="test-level" style="border-color:#8b5cf6">
                                     <div class="test-level-header">
-                                        <span class="test-badge" style="background:rgba(139,92,246,.2);color:#8b5cf6">Integration Tests</span>
+                                        <span class="test-badge"
+                                            style="background:rgba(139,92,246,.2);color:#8b5cf6">Integration
+                                            Tests</span>
                                         <span class="test-scope">بتختبر Service كاملة مع داتابيزها</span>
                                     </div>
-                                    <p>بتشغّل الـ Service مع الداتابيز الحقيقية (أو test database) وبتختبر الـ API Endpoints.</p>
+                                    <p>بتشغّل الـ Service مع الداتابيز الحقيقية (أو test database) وبتختبر الـ API
+                                        Endpoints.</p>
                                     <code>POST /api/orders → expect(201, {orderId})</code>
                                 </div>
                                 <div class="test-level" style="border-color:#f59e0b">
                                     <div class="test-level-header">
-                                        <span class="test-badge" style="background:rgba(245,158,11,.2);color:#f59e0b">Contract Tests</span>
+                                        <span class="test-badge"
+                                            style="background:rgba(245,158,11,.2);color:#f59e0b">Contract Tests</span>
                                         <span class="test-scope">بتختبر التواصل بين الخدمات</span>
                                     </div>
-                                    <p>بتتأكد إن لو Orders Service بتبعت Request بشكل معين، الـ Inventory بتفهمه صح. أداة مشهورة: <strong>Pact</strong>.</p>
+                                    <p>بتتأكد إن لو Orders Service بتبعت Request بشكل معين، الـ Inventory بتفهمه صح.
+                                        أداة مشهورة: <strong>Pact</strong>.</p>
                                 </div>
                                 <div class="test-level" style="border-color:#10b981">
                                     <div class="test-level-header">
-                                        <span class="test-badge" style="background:rgba(16,185,129,.2);color:#10b981">E2E Tests</span>
+                                        <span class="test-badge"
+                                            style="background:rgba(16,185,129,.2);color:#10b981">E2E Tests</span>
                                         <span class="test-scope">بتختبر رحلة المستخدم كاملة</span>
                                     </div>
-                                    <p>بتشغّل <strong>كل الخدمات مع بعض</strong> وبتعمل طلب شراء كامل من الأول للآخر وبتتأكد إن كل حاجة شغالة. بطيء لكن بيكشف مشاكل التكامل.</p>
+                                    <p>بتشغّل <strong>كل الخدمات مع بعض</strong> وبتعمل طلب شراء كامل من الأول للآخر
+                                        وبتتأكد إن كل حاجة شغالة. بطيء لكن بيكشف مشاكل التكامل.</p>
                                 </div>
                             </div>
                         </div>
@@ -1470,7 +1622,8 @@ volumes:
                                     <div class="security-icon">🛡️</div>
                                     <h4>External Security (Client → Gateway)</h4>
                                     <ul>
-                                        <li><strong>JWT Token:</strong> Client بيبعت Token مع كل Request، الـ Gateway بيتحقق منه قبل ما يوصل لأي خدمة.</li>
+                                        <li><strong>JWT Token:</strong> Client بيبعت Token مع كل Request، الـ Gateway
+                                            بيتحقق منه قبل ما يوصل لأي خدمة.</li>
                                         <li><strong>HTTPS:</strong> كل الـ Traffic مشفّر.</li>
                                         <li><strong>Rate Limiting:</strong> الـ Gateway بيمنع Brute Force attacks.</li>
                                     </ul>
@@ -1479,9 +1632,12 @@ volumes:
                                     <div class="security-icon">🔐</div>
                                     <h4>Internal Security (Service → Service)</h4>
                                     <ul>
-                                        <li><strong>mTLS:</strong> كل خدمة بيكون عندها Certificate وبتتحقق من هوية الخدمة التانية.</li>
-                                        <li><strong>Service Mesh (Istio):</strong> بيعمل Encryption تلقائي لكل الـ internal communication.</li>
-                                        <li><strong>Network Policies:</strong> تحدد إن Orders Service بتكلم Inventory بس، ومش بتكلم الـ DB مباشرةً.</li>
+                                        <li><strong>mTLS:</strong> كل خدمة بيكون عندها Certificate وبتتحقق من هوية
+                                            الخدمة التانية.</li>
+                                        <li><strong>Service Mesh (Istio):</strong> بيعمل Encryption تلقائي لكل الـ
+                                            internal communication.</li>
+                                        <li><strong>Network Policies:</strong> تحدد إن Orders Service بتكلم Inventory
+                                            بس، ومش بتكلم الـ DB مباشرةً.</li>
                                     </ul>
                                 </div>
                             </div>
@@ -1508,7 +1664,8 @@ volumes:
                                     <ul>
                                         <li>أكتر من <strong>700 Microservice</strong></li>
                                         <li>بيعملوا أكتر من <strong>1 مليون deployment</strong> في السنة</li>
-                                        <li>بيستخدموا <strong>Chaos Engineering</strong> — بيطفوا Services عمداً في Production عشان يتأكدوا إن النظام بيتحمل!</li>
+                                        <li>بيستخدموا <strong>Chaos Engineering</strong> — بيطفوا Services عمداً في
+                                            Production عشان يتأكدوا إن النظام بيتحمل!</li>
                                         <li>بيستخدموا أداتهم الخاصة <strong>Hystrix</strong> للـ Circuit Breaker</li>
                                     </ul>
                                 </div>
@@ -1518,8 +1675,10 @@ volumes:
                                     <ul>
                                         <li>بدأوا Monolithic في التسعينيات</li>
                                         <li>انتقلوا للـ Microservices في بداية الألفينيات</li>
-                                        <li>كل Service يملكها فريق صغير (<strong>Two-Pizza Team</strong> — فريق يتغذى على بيتزتين!)</li>
-                                        <li>الـ Microservices architecture بتاعتهم أدى لاختراع <strong>AWS</strong> نفسه — لأنهم احتاجوا infrastructure مرن!</li>
+                                        <li>كل Service يملكها فريق صغير (<strong>Two-Pizza Team</strong> — فريق يتغذى
+                                            على بيتزتين!)</li>
+                                        <li>الـ Microservices architecture بتاعتهم أدى لاختراع <strong>AWS</strong> نفسه
+                                            — لأنهم احتاجوا infrastructure مرن!</li>
                                     </ul>
                                 </div>
                                 <div class="company-card">
@@ -1528,14 +1687,55 @@ volumes:
                                     <ul>
                                         <li>بدأوا بـ Monolithic بلغة Python</li>
                                         <li>انتقلوا لأكتر من <strong>2000 Microservice</strong></li>
-                                        <li>بعدين اكتشفوا إن ده كتير جداً وبدأوا يدمجوا بعضهم! (<strong>Macro-services</strong>)</li>
+                                        <li>بعدين اكتشفوا إن ده كتير جداً وبدأوا يدمجوا بعضهم!
+                                            (<strong>Macro-services</strong>)</li>
                                         <li>الدرس: الـ Microservices مش "أكتر = أحسن"</li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="faq-tip">
                                 <i class="fa-solid fa-graduation-cap"></i>
-                                <strong>الخلاصة الذهبية:</strong> حتى الشركات الكبيرة دي غلطت وتعلمت. مفيش "right answer" واحد — الصح هو اللي يناسب حجم مشروعك وفريقك.
+                                <strong>الخلاصة الذهبية:</strong> حتى الشركات الكبيرة دي غلطت وتعلمت. مفيش "right
+                                answer" واحد — الصح هو اللي يناسب حجم مشروعك وفريقك.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q11 -->
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <div class="faq-q-left">
+                            <span class="faq-num">11</span>
+                            <span>إزاي النظام بيعرف إن خدمة "حية" وشغالة كويس؟ (Health Checks)</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>ده أبسط وأهم مفهوم قبل ما تتكلم عن Monitoring متقدم زي ELK أو Grafana. كل خدمة كويسة
+                                بيكون عندها <strong>Endpoint بسيط</strong> اسمه غالباً <code>/health</code>، بيرجع بس
+                                رسالة صغيرة تقول "أنا شغالة":</p>
+                            <div class="faq-methods-grid">
+                                <div class="faq-method">
+                                    <div class="method-icon">💚</div>
+                                    <h4>Health Check Endpoint</h4>
+                                    <p>مثال بسيط: أي حد (أو أي نظام) يعمل GET على الرابط ده، لو الخدمة شغالة هترجع 200
+                                        OK. لو مش شغالة، الطلب هيفشل أو يرجع خطأ.</p>
+                                    <code>GET /health → {"status": "ok"}</code>
+                                </div>
+                                <div class="faq-method">
+                                    <div class="method-icon">🔁</div>
+                                    <h4>مين بيسأل السؤال ده؟</h4>
+                                    <p>الـ Load Balancer أو Kubernetes بيسأل الخدمة كل كام ثانية "إنتي لسه شغالة؟". لو
+                                        مردتش لعدد مرات معين، النظام بيعتبرها "واقعة" ويوقف إرسال طلبات ليها، وأحياناً
+                                        بيعيد تشغيلها تلقائياً.</p>
+                                </div>
+                            </div>
+                            <div class="faq-tip">
+                                <i class="fa-solid fa-lightbulb"></i>
+                                من غير Health Checks، النظام مش هيعرف إن خدمة معينة "متجمدة" (Hanging) لسه شغالة تقنياً
+                                بس مش بترد فعلياً — وده أخطر من إنها تقع تماماً!
                             </div>
                         </div>
                     </div>
@@ -1568,4 +1768,5 @@ volumes:
 
     <script src="js/script.js"></script>
 </body>
+
 </html>
