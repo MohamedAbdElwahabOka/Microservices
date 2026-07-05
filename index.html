@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microservices Architecture | شرح تفاعلي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- FLOATING BG                                                   -->
+    <!-- ============================================================ -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+
+    <!-- ============================================================ -->
+    <!-- NAV                                                           -->
+    <!-- ============================================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo">
+            <i class="fa-solid fa-cubes"></i>
+            <span>Microservices</span>
+        </div>
+        <div class="nav-links">
+            <a href="#hero">البداية</a>
+            <a href="#monolithic">Monolithic</a>
+            <a href="#why">ليه؟</a>
+            <a href="#architecture">المعمارية</a>
+            <a href="#simulator">المحاكي</a>
+            <a href="#code">الكود</a>
+            <a href="#docker">🐳 Docker</a>
+        </div>
+    </nav>
+
+    <!-- ============================================================ -->
+    <!-- HERO                                                          -->
+    <!-- ============================================================ -->
+    <section id="hero" class="hero-section">
+        <div class="hero-grid-pattern"></div>
+        <div class="hero-content reveal">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                شرح تفاعلي من الصفر للاحتراف
+            </div>
+            <h1>الـ <span class="glow-text">Microservices</span><br>كما لم يشرحها أحد!</h1>
+            <p>من قصة السوبر ماركت، لتصميم الخوادم، لخطوط البيانات المتحركة، للكود الحقيقي. كل حاجة هنا.</p>
+            <div class="hero-ctas">
+                <a href="#monolithic" class="btn btn-primary">
+                    <i class="fa-solid fa-play"></i>
+                    ابدأ القصة
+                </a>
+                <a href="#simulator" class="btn btn-outline">
+                    <i class="fa-solid fa-rocket"></i>
+                    المحاكي التفاعلي
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual reveal">
+            <div class="hero-nodes">
+                <div class="hero-node node-center"><i class="fa-solid fa-network-wired"></i></div>
+                <div class="hero-node node-top-left"><i class="fa-solid fa-users"></i></div>
+                <div class="hero-node node-top-right"><i class="fa-solid fa-credit-card"></i></div>
+                <div class="hero-node node-bottom-left"><i class="fa-solid fa-bell"></i></div>
+                <div class="hero-node node-bottom-right"><i class="fa-solid fa-box-open"></i></div>
+                <svg class="hero-svg" viewBox="0 0 300 300">
+                    <line class="hero-line" x1="150" y1="150" x2="75" y2="75"/>
+                    <line class="hero-line" x1="150" y1="150" x2="225" y2="75"/>
+                    <line class="hero-line" x1="150" y1="150" x2="75" y2="225"/>
+                    <line class="hero-line" x1="150" y1="150" x2="225" y2="225"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- MONOLITHIC SECTION                                            -->
+    <!-- ============================================================ -->
+    <section id="monolithic" class="section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag danger">الطريقة القديمة</span>
+                <h2>الـ <span class="glow-text-red">Monolithic</span>: الروبوت العملاق</h2>
+                <p>تخيل سوبر ماركت كامل بيديره <strong>روبوت واحد</strong> بيعمل كل حاجة: بيحاسب، بيرص، بينضف، بيراقب. هيحصل إيه لو عطل؟</p>
+            </div>
+
+            <div class="mono-layout reveal">
+                <!-- Visual of Monolith -->
+                <div class="mono-visual">
+                    <div class="mono-robot-card">
+                        <div class="robot-icon">🤖</div>
+                        <h3>التطبيق الواحد (Monolith)</h3>
+                        <div class="mono-modules">
+                            <div class="mono-module">🔑 تسجيل دخول</div>
+                            <div class="mono-module">🛒 منتجات</div>
+                            <div class="mono-module">💳 دفع</div>
+                            <div class="mono-module mono-broken">🔔 إشعارات ⚠️ عطل!</div>
+                        </div>
+                        <div class="mono-arrow">⬇️</div>
+                        <div class="mono-db">
+                            <i class="fa-solid fa-database"></i>
+                            قاعدة بيانات واحدة ضخمة
+                        </div>
+                    </div>
+                    <div class="crash-banner">
+                        <i class="fa-solid fa-skull"></i>
+                        <strong>النتيجة:</strong> التطبيق كله اتشل بسبب الإشعارات!
+                    </div>
+                </div>
+
+                <!-- Problem Cards -->
+                <div class="problems-grid">
+                    <div class="problem-card">
+                        <div class="problem-icon">💥</div>
+                        <h4>نقطة فشل واحدة</h4>
+                        <p>عطل في أي جزء = التطبيق كله يقع. حتى لو الجزء مش مهم.</p>
+                    </div>
+                    <div class="problem-card">
+                        <div class="problem-icon">📦</div>
+                        <h4>صعوبة التوسع</h4>
+                        <p>محتاج تحمل الكاشير فقط؟ لازم تشغّل نسخة من التطبيق كله!</p>
+                    </div>
+                    <div class="problem-card">
+                        <div class="problem-icon">🐢</div>
+                        <h4>بطء التطوير</h4>
+                        <p>100 developer بيعملوا في نفس الكود = chaos ومشاكل لا تنتهي.</p>
+                    </div>
+                    <div class="problem-card">
+                        <div class="problem-icon">🔒</div>
+                        <h4>قيد اللغة</h4>
+                        <p>لو التطبيق مكتوب بـ Java، كل حاجة Java. مش هتقدر تستخدم Python.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- WHY MICROSERVICES                                             -->
+    <!-- ============================================================ -->
+    <section id="why" class="section dark-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">الحل</span>
+                <h2>الـ <span class="glow-text">Microservices</span>: فريق العمل المنظم</h2>
+            </div>
+
+            <div class="comparison-table reveal">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>المعيار</th>
+                            <th class="bad-col">❌ Monolithic</th>
+                            <th class="good-col">✅ Microservices</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>لو حصل عطل</td>
+                            <td class="bad-col">التطبيق كله يقع</td>
+                            <td class="good-col">الخدمة دي بس توقف، الباقي شغال</td>
+                        </tr>
+                        <tr>
+                            <td>التوسع (Scaling)</td>
+                            <td class="bad-col">لازم توسع كل حاجة</td>
+                            <td class="good-col">بتوسع الخدمة اللي عليها ضغط بس</td>
+                        </tr>
+                        <tr>
+                            <td>التطوير</td>
+                            <td class="bad-col">فريق واحد ضخم في كود واحد</td>
+                            <td class="good-col">فرق صغيرة مستقلة لكل خدمة</td>
+                        </tr>
+                        <tr>
+                            <td>اللغة البرمجية</td>
+                            <td class="bad-col">لغة واحدة للكل</td>
+                            <td class="good-col">كل خدمة تختار لغتها</td>
+                        </tr>
+                        <tr>
+                            <td>قاعدة البيانات</td>
+                            <td class="bad-col">داتابيز واحدة للكل</td>
+                            <td class="good-col">كل خدمة ليها داتابيزها الخاصة</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ARCHITECTURE + DB SECTION                                     -->
+    <!-- ============================================================ -->
+    <section id="architecture" class="section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">تصميم السيرفر</span>
+                <h2>تقسيمة الخوادم وقواعد البيانات 🗂️</h2>
+                <p>القاعدة الذهبية: <strong>كل خدمة ليها قاعدة بياناتها الخاصة</strong>. محدش بيدخل على داتابيز التاني مباشرةً.</p>
+            </div>
+
+            <!-- Static Architecture Diagram (SVG-based) -->
+            <div class="arch-diagram-wrapper reveal">
+                <div class="arch-diagram" id="archDiagram">
+
+                    <!-- CLIENT -->
+                    <div class="arch-node client-node" id="nodeClient" style="grid-column: 3; grid-row: 1;">
+                        <div class="node-inner">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                            <span>العميل (Client)</span>
+                        </div>
+                    </div>
+
+                    <!-- GATEWAY -->
+                    <div class="arch-node gateway-node" id="nodeGateway" style="grid-column: 3; grid-row: 2;">
+                        <div class="node-inner">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span>API Gateway</span>
+                            <small>البوابة الرئيسية</small>
+                        </div>
+                    </div>
+
+                    <!-- SERVICES ROW -->
+                    <div class="arch-node service-node" id="nodeAuth" style="grid-column: 1; grid-row: 3;">
+                        <div class="node-inner">
+                            <i class="fa-solid fa-users"></i>
+                            <span>Auth Service</span>
+                            <small>Node.js :3001</small>
+                        </div>
+                    </div>
+
+                    <div class="arch-node service-node" id="nodeOrders" style="grid-column: 3; grid-row: 3;">
+                        <div class="node-inner">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span>Orders Service</span>
+                            <small>Node.js :3002</small>
+                        </div>
+                    </div>
+
+                    <div class="arch-node service-node" id="nodeInventory" style="grid-column: 5; grid-row: 3;">
+                        <div class="node-inner">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                            <span>Inventory Service</span>
+                            <small>Python :3003</small>
+                        </div>
+                    </div>
+
+                    <!-- NOTIFICATION and PAYMENT -->
+                    <div class="arch-node service-node" id="nodePayment" style="grid-column: 2; grid-row: 5;">
+                        <div class="node-inner">
+                            <i class="fa-solid fa-credit-card"></i>
+                            <span>Payment Service</span>
+                            <small>Go :3004</small>
+                        </div>
+                    </div>
+
+                    <div class="arch-node service-node" id="nodeNotif" style="grid-column: 4; grid-row: 5;">
+                        <div class="node-inner">
+                            <i class="fa-solid fa-bell"></i>
+                            <span>Notification Service</span>
+                            <small>Python :3005</small>
+                        </div>
+                    </div>
+
+                    <!-- DATABASES ROW -->
+                    <div class="arch-node db-node" id="dbAuth" style="grid-column: 1; grid-row: 4;">
+                        <div class="node-inner">
+                            <i class="fa-solid fa-database"></i>
+                            <span>Auth DB</span>
+                            <small>MongoDB</small>
+                        </div>
+                    </div>
+
+                    <div class="arch-node db-node" id="dbOrders" style="grid-column: 3; grid-row: 4;">
+                        <div class="node-inner">
+                            <i class="fa-solid fa-database"></i>
+                            <span>Orders DB</span>
+                            <small>PostgreSQL</small>
+                        </div>
+                    </div>
+
+                    <div class="arch-node db-node" id="dbInventory" style="grid-column: 5; grid-row: 4;">
+                        <div class="node-inner">
+                            <i class="fa-solid fa-database"></i>
+                            <span>Inventory DB</span>
+                            <small>PostgreSQL</small>
+                        </div>
+                    </div>
+
+                    <div class="arch-node db-node" id="dbPayment" style="grid-column: 2; grid-row: 6;">
+                        <div class="node-inner">
+                            <i class="fa-solid fa-database"></i>
+                            <span>Payment DB</span>
+                            <small>PostgreSQL</small>
+                        </div>
+                    </div>
+
+                    <div class="arch-node db-node" id="dbNotif" style="grid-column: 4; grid-row: 6;">
+                        <div class="node-inner">
+                            <i class="fa-solid fa-database"></i>
+                            <span>Notif DB</span>
+                            <small>Redis</small>
+                        </div>
+                    </div>
+
+                    <!-- SVG OVERLAY for animated lines -->
+                    <svg class="arch-svg" id="archSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- INTERACTIVE SIMULATOR                                         -->
+    <!-- ============================================================ -->
+    <section id="simulator" class="section dark-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">🔴 تفاعلي</span>
+                <h2>محاكي الـ Request المتحرك 🚀</h2>
+                <p>اضغط على "ابعت Request" وشوف الرحلة الكاملة للطلب من الموبايل لكل خدمة وترجع تاني!</p>
+            </div>
+
+            <div class="simulator-wrapper reveal">
+                <!-- Log Panel -->
+                <div class="sim-log-panel glass-card" id="simLog">
+                    <div class="sim-log-header">
+                        <i class="fa-solid fa-terminal"></i>
+                        <span>Server Logs</span>
+                        <span class="log-live"><span class="pulse-dot"></span>Live</span>
+                    </div>
+                    <div class="sim-log-body" id="simLogBody">
+                        <div class="log-line log-info">⏳ انتظر... ابعت Request عشان تشوف السحر!</div>
+                    </div>
+                </div>
+
+                <!-- Simulator Diagram -->
+                <div class="sim-diagram" id="simDiagram">
+                    <!-- NODES -->
+                    <div class="sim-node sim-client" id="simClient">
+                        <div class="sim-node-icon">📱</div>
+                        <div class="sim-node-label">Client</div>
+                    </div>
+
+                    <div class="sim-node sim-gateway" id="simGateway">
+                        <div class="sim-node-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div class="sim-node-label">API Gateway</div>
+                    </div>
+
+                    <div class="sim-services-row">
+                        <div class="sim-node sim-service" id="simAuth">
+                            <div class="sim-node-icon"><i class="fa-solid fa-users"></i></div>
+                            <div class="sim-node-label">Auth</div>
+                            <div class="sim-node-db">MongoDB</div>
+                        </div>
+                        <div class="sim-node sim-service" id="simOrders">
+                            <div class="sim-node-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                            <div class="sim-node-label">Orders</div>
+                            <div class="sim-node-db">PostgreSQL</div>
+                        </div>
+                        <div class="sim-node sim-service" id="simInventory">
+                            <div class="sim-node-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+                            <div class="sim-node-label">Inventory</div>
+                            <div class="sim-node-db">PostgreSQL</div>
+                        </div>
+                        <div class="sim-node sim-service" id="simPayment">
+                            <div class="sim-node-icon"><i class="fa-solid fa-credit-card"></i></div>
+                            <div class="sim-node-label">Payment</div>
+                            <div class="sim-node-db">MySQL</div>
+                        </div>
+                        <div class="sim-node sim-service" id="simNotif">
+                            <div class="sim-node-icon"><i class="fa-solid fa-bell"></i></div>
+                            <div class="sim-node-label">Notifs</div>
+                            <div class="sim-node-db">Redis</div>
+                        </div>
+                    </div>
+
+                    <!-- SVG Canvas for the simulator lines & packets -->
+                    <svg class="sim-svg" id="simSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+                </div>
+
+                <!-- Buttons -->
+                <div class="sim-controls">
+                    <button class="btn btn-primary btn-lg" id="btnSendRequest" onclick="sendRequest()">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        ابعت Request (شراء منتج)
+                    </button>
+                    <button class="btn btn-outline btn-lg" id="btnReset" onclick="resetSim()" style="display:none">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- FOLDER STRUCTURE                                              -->
+    <!-- ============================================================ -->
+    <section id="folders" class="section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">📁 السيرفر</span>
+                <h2>شكل الفولدرات على السيرفر</h2>
+                <p>هكذا بيبان المشروع على جهازك أو السيرفر. كل خدمة = فولدر مستقل = مشروع لوحده.</p>
+            </div>
+
+            <div class="folders-layout reveal">
+                <div class="tree-card glass-card" dir="ltr">
+                    <div class="tree-header">
+                        <div class="tree-dots"><span></span><span></span><span></span></div>
+                        <span>~/server/ — Terminal</span>
+                    </div>
+                    <div class="tree-body">
+                        <ul class="tree">
+                            <li class="tree-root">
+                                <i class="fa-solid fa-folder-open col-yellow"></i>
+                                <strong>ecommerce-microservices/</strong>
+                                <ul>
+                                    <li>
+                                        <i class="fa-solid fa-folder col-purple"></i>
+                                        <strong>api-gateway/</strong>
+                                        <span class="comment"># البوابة - توجه الطلبات</span>
+                                        <ul>
+                                            <li><i class="fa-brands fa-node-js col-green"></i> server.js</li>
+                                            <li><i class="fa-solid fa-file col-blue"></i> routes.js</li>
+                                            <li><i class="fa-brands fa-docker col-blue"></i> Dockerfile</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <i class="fa-solid fa-folder col-blue"></i>
+                                        <strong>auth-service/</strong>
+                                        <span class="comment"># تسجيل الدخول (Node.js)</span>
+                                        <ul>
+                                            <li><i class="fa-solid fa-folder col-muted"></i> controllers/</li>
+                                            <li><i class="fa-solid fa-folder col-muted"></i> models/ <span class="comment"># User.model.js</span></li>
+                                            <li><i class="fa-solid fa-folder col-muted"></i> routes/</li>
+                                            <li><i class="fa-brands fa-node-js col-green"></i> index.js</li>
+                                            <li><i class="fa-solid fa-file col-yellow"></i> .env <span class="comment"># JWT_SECRET, MONGO_URI</span></li>
+                                            <li><i class="fa-brands fa-docker col-blue"></i> Dockerfile</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <i class="fa-solid fa-folder col-blue"></i>
+                                        <strong>orders-service/</strong>
+                                        <span class="comment"># الطلبات (Node.js)</span>
+                                        <ul>
+                                            <li><i class="fa-solid fa-folder col-muted"></i> controllers/</li>
+                                            <li><i class="fa-solid fa-folder col-muted"></i> models/</li>
+                                            <li><i class="fa-brands fa-node-js col-green"></i> index.js</li>
+                                            <li><i class="fa-solid fa-file col-yellow"></i> .env <span class="comment"># POSTGRES_URI</span></li>
+                                            <li><i class="fa-brands fa-docker col-blue"></i> Dockerfile</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <i class="fa-solid fa-folder col-blue"></i>
+                                        <strong>inventory-service/</strong>
+                                        <span class="comment"># المخازن (Python/FastAPI)</span>
+                                        <ul>
+                                            <li><i class="fa-brands fa-python col-yellow"></i> main.py</li>
+                                            <li><i class="fa-solid fa-file col-muted"></i> database.py</li>
+                                            <li><i class="fa-solid fa-file col-muted"></i> models.py</li>
+                                            <li><i class="fa-solid fa-file col-muted"></i> requirements.txt</li>
+                                            <li><i class="fa-brands fa-docker col-blue"></i> Dockerfile</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <i class="fa-solid fa-folder col-blue"></i>
+                                        <strong>payment-service/</strong>
+                                        <span class="comment"># الدفع (Go)</span>
+                                        <ul>
+                                            <li><i class="fa-solid fa-file col-cyan"></i> main.go</li>
+                                            <li><i class="fa-solid fa-file col-cyan"></i> handlers.go</li>
+                                            <li><i class="fa-brands fa-docker col-blue"></i> Dockerfile</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <i class="fa-solid fa-folder col-blue"></i>
+                                        <strong>notification-service/</strong>
+                                        <span class="comment"># الإشعارات (Python)</span>
+                                        <ul>
+                                            <li><i class="fa-brands fa-python col-yellow"></i> main.py</li>
+                                            <li><i class="fa-brands fa-docker col-blue"></i> Dockerfile</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <i class="fa-brands fa-docker col-blue"></i>
+                                        <strong>docker-compose.yml</strong>
+                                        <span class="comment"># يشغل كل السيرفرات مع بعض!</span>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="folder-notes">
+                    <div class="note-card glass-card">
+                        <div class="note-icon">🐳</div>
+                        <h4>docker-compose.yml</h4>
+                        <p>ده الملف السحري اللي بيشغل كل الخدمات (5 سيرفرات + 5 داتابيزات) بأمر واحد: <code>docker-compose up</code></p>
+                    </div>
+                    <div class="note-card glass-card">
+                        <div class="note-icon">🔒</div>
+                        <h4>ملف .env لكل خدمة</h4>
+                        <p>كل خدمة عندها ملف .env خاص بيها فيه connection string بتاعت الداتابيز الخاصة بيها فقط.</p>
+                    </div>
+                    <div class="note-card glass-card">
+                        <div class="note-icon">🗣️</div>
+                        <h4>لغات مختلفة!</h4>
+                        <p>Auth بـ Node.js، Inventory بـ Python، Payment بـ Go. كل فريق بيختار لغته. ده من أقوى مزايا الـ Microservices.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- CODE SECTION                                                  -->
+    <!-- ============================================================ -->
+    <section id="code" class="section dark-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">💻 الكود</span>
+                <h2>الكود الحقيقي بالتفصيل</h2>
+                <p>شايف الأنيميشن فوق؟ ده بيحصل جوه الكود بالظبط كده.</p>
+            </div>
+
+            <div class="code-tabs reveal" dir="ltr">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" onclick="showTab('tab-gateway')">API Gateway</button>
+                    <button class="tab-btn" onclick="showTab('tab-orders')">Orders Service</button>
+                    <button class="tab-btn" onclick="showTab('tab-inventory')">Inventory (Python)</button>
+                    <button class="tab-btn" onclick="showTab('tab-docker')">docker-compose.yml</button>
+                </div>
+
+                <div class="tab-content active" id="tab-gateway">
+                    <div class="code-file-label">api-gateway/server.js</div>
+                    <pre><code class="language-javascript">const express = require('express');
+const httpProxy = require('http-proxy-middleware');
+const app = express();
+
+// الـ Gateway بيستقبل كل الطلبات من الـ Client
+// وبيوجهها للخدمة الصح زي المدير اللي بيوزع الشغل
+
+// لو الـ URL بيبدأ بـ /api/auth، يروح لـ Auth Service
+app.use('/api/auth', httpProxy.createProxyMiddleware({
+    target: 'http://auth-service:3001',
+    changeOrigin: true,
+}));
+
+// لو الـ URL بيبدأ بـ /api/orders، يروح لـ Orders Service
+app.use('/api/orders', httpProxy.createProxyMiddleware({
+    target: 'http://orders-service:3002',
+    changeOrigin: true,
+}));
+
+// لو الـ URL بيبدأ بـ /api/inventory، يروح لـ Inventory Service
+app.use('/api/inventory', httpProxy.createProxyMiddleware({
+    target: 'http://inventory-service:3003',
+    changeOrigin: true,
+}));
+
+// لو الـ URL بيبدأ بـ /api/payment، يروح لـ Payment Service
+app.use('/api/payment', httpProxy.createProxyMiddleware({
+    target: 'http://payment-service:3004',
+    changeOrigin: true,
+}));
+
+app.listen(8080, () => {
+    console.log('🛡️ API Gateway running on port 8080');
+});</code></pre>
+                </div>
+
+                <div class="tab-content" id="tab-orders">
+                    <div class="code-file-label">orders-service/index.js</div>
+                    <pre><code class="language-javascript">const express = require('express');
+const axios = require('axios'); // عشان نكلم الخدمات التانية
+const app = express();
+app.use(express.json());
+
+// Route بتاع إنشاء أوردر جديد
+app.post('/api/orders', async (req, res) => {
+    const { userId, productId, quantity } = req.body;
+
+    try {
+        // =====================================================
+        // STEP 1: اسأل خدمة المخازن: "الكمية دي متاحة؟"
+        // بنكلم Inventory Service مباشرةً عن طريق HTTP
+        // =====================================================
+        const stockCheck = await axios.get(
+            `http://inventory-service:3003/api/stock/${productId}`
+        );
+
+        if (stockCheck.data.available < quantity) {
+            return res.status(400).json({ 
+                error: 'عفواً! الكمية المطلوبة غير متاحة في المخزن.' 
+            });
+        }
+
+        // =====================================================
+        // STEP 2: احفظ الأوردر في الداتابيز الخاصة بالـ Orders
+        // =====================================================
+        const newOrder = await Order.create({
+            userId,
+            productId,
+            quantity,
+            status: 'pending',
+            createdAt: new Date()
+        });
+
+        // =====================================================
+        // STEP 3: اخصم الكمية من المخزن
+        // =====================================================
+        await axios.patch(
+            `http://inventory-service:3003/api/stock/${productId}`,
+            { reduceBy: quantity }
+        );
+
+        // =====================================================
+        // STEP 4: ابعت للـ Payment Service يعمل الدفع
+        // =====================================================
+        const payment = await axios.post(
+            'http://payment-service:3004/api/charge',
+            { orderId: newOrder.id, amount: stockCheck.data.price * quantity }
+        );
+
+        // =====================================================
+        // STEP 5: ابعت إشعار للمستخدم (Fire and Forget)
+        // مش هنستنى الرد، بس نبعتله الرسالة
+        // =====================================================
+        axios.post('http://notification-service:3005/api/notify', {
+            userId,
+            message: `تم شراء طلبك بنجاح! رقم الطلب: ${newOrder.id}`
+        }).catch(err => {
+            // لو الإشعارات عطلت، الأوردر هيتعمل عادي ومش هيتأثر!
+            console.log('⚠️ Notification service is down, but order is saved.');
+        });
+
+        // =====================================================
+        // SUCCESS: الأوردر اتعمل والفلوس اتخصمت!
+        // =====================================================
+        res.status(201).json({
+            success: true,
+            orderId: newOrder.id,
+            paymentId: payment.data.paymentId,
+            message: 'تم الطلب بنجاح! 🎉'
+        });
+
+    } catch (error) {
+        res.status(500).json({ error: 'حصل خطأ، حاول مرة أخرى.' });
+    }
+});
+
+app.listen(3002, () => console.log('🛒 Orders Service on port 3002'));</code></pre>
+                </div>
+
+                <div class="tab-content" id="tab-inventory">
+                    <div class="code-file-label">inventory-service/main.py (FastAPI)</div>
+                    <pre><code class="language-python">from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from database import get_db_connection  # اتصال بـ PostgreSQL
+
+app = FastAPI()
+
+# ملاحظة: الخدمة دي مكتوبة بـ Python
+# بينما Orders Service مكتوبة بـ Node.js
+# وده من أجمل حاجات الـ Microservices!
+
+@app.get("/api/stock/{product_id}")
+async def check_stock(product_id: int):
+    """
+    Orders Service بتكلمنا هنا عشان تعرف:
+    1. الكمية المتاحة من المنتج
+    2. سعر المنتج
+    """
+    db = get_db_connection()
+    product = db.execute(
+        "SELECT * FROM products WHERE id = ?", (product_id,)
+    ).fetchone()
+
+    if not product:
+        raise HTTPException(status_code=404, detail="المنتج مش موجود!")
+
+    return {
+        "product_id": product_id,
+        "name": product["name"],
+        "available": product["stock_count"],
+        "price": product["price"]
+    }
+
+
+class StockUpdate(BaseModel):
+    reduce_by: int
+
+
+@app.patch("/api/stock/{product_id}")
+async def reduce_stock(product_id: int, update: StockUpdate):
+    """
+    Orders Service بتكلمنا هنا بعد ما الأوردر اتسجل عشان نخصم الكمية
+    """
+    db = get_db_connection()
+    db.execute(
+        "UPDATE products SET stock_count = stock_count - ? WHERE id = ?",
+        (update.reduce_by, product_id)
+    )
+    db.commit()
+    
+    print(f"✅ Reduced stock for product {product_id} by {update.reduce_by}")
+    return {"success": True, "message": "تم خصم الكمية من المخزن!"}
+
+
+# شغّل السيرفر على بورت 3003
+# uvicorn main:app --host 0.0.0.0 --port 3003</code></pre>
+                </div>
+
+                <div class="tab-content" id="tab-docker">
+                    <div class="code-file-label">docker-compose.yml</div>
+                    <pre><code class="language-yaml">version: '3.8'
+# الملف ده بيشغل كل الخدمات والداتابيزات مع بعض بأمر واحد!
+# فقط: docker-compose up
+
+services:
+
+  # ============================
+  # API GATEWAY
+  # ============================
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8080:8080"   # ده اللي العميل بيكلمه
+    depends_on:
+      - auth-service
+      - orders-service
+      - inventory-service
+
+  # ============================
+  # AUTH SERVICE + MongoDB
+  # ============================
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "3001:3001"
+    environment:
+      - MONGO_URI=mongodb://auth-db:27017/authdb
+      - JWT_SECRET=super_secret_key
+    depends_on:
+      - auth-db
+
+  auth-db:
+    image: mongo:6.0          # داتابيز الـ Auth (MongoDB)
+    volumes:
+      - auth_data:/data/db
+
+  # ============================
+  # ORDERS SERVICE + PostgreSQL
+  # ============================
+  orders-service:
+    build: ./orders-service
+    ports:
+      - "3002:3002"
+    environment:
+      - POSTGRES_URI=postgres://user:pass@orders-db/ordersdb
+    depends_on:
+      - orders-db
+
+  orders-db:
+    image: postgres:15          # داتابيز الـ Orders (PostgreSQL)
+    environment:
+      POSTGRES_DB: ordersdb
+    volumes:
+      - orders_data:/var/lib/postgresql/data
+
+  # ============================
+  # INVENTORY SERVICE + PostgreSQL
+  # ============================
+  inventory-service:
+    build: ./inventory-service
+    ports:
+      - "3003:3003"
+    environment:
+      - POSTGRES_URI=postgres://user:pass@inventory-db/inventorydb
+    depends_on:
+      - inventory-db
+
+  inventory-db:
+    image: postgres:15
+    volumes:
+      - inventory_data:/var/lib/postgresql/data
+
+  # ============================
+  # PAYMENT SERVICE + MySQL
+  # ============================
+  payment-service:
+    build: ./payment-service
+    ports:
+      - "3004:3004"
+    environment:
+      - MYSQL_URI=mysql://user:pass@payment-db/paymentdb
+    depends_on:
+      - payment-db
+
+  payment-db:
+    image: mysql:8.0
+    volumes:
+      - payment_data:/var/lib/mysql
+
+  # ============================
+  # NOTIFICATION SERVICE + Redis
+  # ============================
+  notification-service:
+    build: ./notification-service
+    ports:
+      - "3005:3005"
+    environment:
+      - REDIS_URL=redis://notif-db:6379
+    depends_on:
+      - notif-db
+
+  notif-db:
+    image: redis:7.0           # داتابيز الإشعارات (Redis - سريع جداً)
+    volumes:
+      - notif_data:/data
+
+# Volumes لحفظ البيانات
+volumes:
+  auth_data:
+  orders_data:
+  inventory_data:
+  payment_data:
+  notif_data:</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- DOCKER SECTION                                                -->
+    <!-- ============================================================ -->
+    <section id="docker" class="section">
+        <div class="container">
+
+            <!-- Header -->
+            <div class="section-header reveal">
+                <span class="section-tag">🐳 لازم تعرفه</span>
+                <h2>الـ <span class="glow-text-docker">Docker</span> وعلاقته بالـ Microservices</h2>
+                <p>لو الـ Microservices هي "الفكرة"، فالـ Docker هو "التنفيذ". من غير Docker، شغيل 5 خدمات على نفس الجهاز هيبقى nightmare حقيقية!</p>
+            </div>
+
+            <!-- The Problem without Docker -->
+            <div class="docker-problem reveal">
+                <div class="docker-problem-card glass-card">
+                    <div class="docker-problem-icon">😩</div>
+                    <h3>المشكلة من غير Docker</h3>
+                    <p>تخيل عندك 5 خدمات، كل واحدة بلغة مختلفة:</p>
+                    <div class="env-chaos-grid">
+                        <div class="env-chaos-item bad">
+                            <div>🖥️ جهازك</div>
+                            <small>Node 18 + Python 3.11 + Go 1.21</small>
+                        </div>
+                        <div class="env-chaos-arrow">≠</div>
+                        <div class="env-chaos-item bad">
+                            <div>☁️ سيرفر الـ Staging</div>
+                            <small>Node 16 + Python 3.9 + Go 1.19</small>
+                        </div>
+                        <div class="env-chaos-arrow">≠</div>
+                        <div class="env-chaos-item bad">
+                            <div>🚀 Production</div>
+                            <small>Node 20 + Python 3.10 + Go 1.20</small>
+                        </div>
+                    </div>
+                    <div class="crash-banner" style="margin-top:16px;">
+                        <i class="fa-solid fa-skull"></i>
+                        النتيجة: "عندي بيشتغل بس على السيرفر مش بيشتغل!" — كل developer سمعها في حياته 😭
+                    </div>
+                </div>
+            </div>
+
+            <!-- Docker to the rescue -->
+            <div class="docker-rescue reveal">
+                <div class="rescue-header">
+                    <div class="rescue-badge">🐳 Docker الحل</div>
+                    <h3>كل خدمة في "صندوق" (Container) معزول تماماً</h3>
+                    <p>الـ Container بيشيل <strong>الخدمة + كل اللي تحتاجه</strong> (اللغة + المكتبات + الإعدادات) جوا صندوق واحد مضغوط. الصندوق ده بيشتغل بنفس الطريقة في أي مكان.</p>
+                </div>
+                <div class="containers-visual">
+                    <div class="container-box box-auth">
+                        <div class="box-whale">🐳</div>
+                        <div class="box-title">Auth Container</div>
+                        <div class="box-layers">
+                            <div class="box-layer layer-app">auth-service code</div>
+                            <div class="box-layer layer-runtime">Node.js 18</div>
+                            <div class="box-layer layer-os">Alpine Linux</div>
+                        </div>
+                        <div class="box-port">PORT: 3001</div>
+                    </div>
+                    <div class="container-box box-inventory">
+                        <div class="box-whale">🐳</div>
+                        <div class="box-title">Inventory Container</div>
+                        <div class="box-layers">
+                            <div class="box-layer layer-app">inventory code</div>
+                            <div class="box-layer layer-runtime">Python 3.11</div>
+                            <div class="box-layer layer-os">Alpine Linux</div>
+                        </div>
+                        <div class="box-port">PORT: 3003</div>
+                    </div>
+                    <div class="container-box box-payment">
+                        <div class="box-whale">🐳</div>
+                        <div class="box-title">Payment Container</div>
+                        <div class="box-layers">
+                            <div class="box-layer layer-app">payment code</div>
+                            <div class="box-layer layer-runtime">Go 1.21</div>
+                            <div class="box-layer layer-os">Alpine Linux</div>
+                        </div>
+                        <div class="box-port">PORT: 3004</div>
+                    </div>
+                    <div class="container-box box-db">
+                        <div class="box-whale">🐳</div>
+                        <div class="box-title">Auth DB Container</div>
+                        <div class="box-layers">
+                            <div class="box-layer layer-db">Auth Data</div>
+                            <div class="box-layer layer-runtime">MongoDB 6</div>
+                            <div class="box-layer layer-os">Alpine Linux</div>
+                        </div>
+                        <div class="box-port">PORT: 27017</div>
+                    </div>
+                </div>
+                <div class="host-label">🖥️ نفس الجهاز أو أي سيرفر في الدنيا — بيشتغل بنفس الطريقة بالظبط!</div>
+            </div>
+
+            <!-- Why Docker + Microservices -->
+            <div class="docker-why reveal">
+                <h3 class="text-center" style="margin-bottom:32px; font-size:1.8rem;">ليه Docker + Microservices = 💪</h3>
+                <div class="docker-benefits-grid">
+                    <div class="docker-benefit glass-card">
+                        <div class="benefit-icon" style="color:#06B6D4;">📦</div>
+                        <h4>العزل التام (Isolation)</h4>
+                        <p>كل خدمة في صندوقها، لو المخزن (Inventory Container) هنج، باقي الـ Containers شغالة. وتقدر تعمل <code>docker restart inventory</code> من غير ما حاجة تاني تتأثر.</p>
+                    </div>
+                    <div class="docker-benefit glass-card">
+                        <div class="benefit-icon" style="color:#10B981;">🔄</div>
+                        <h4>الـ Scaling بسهولة</h4>
+                        <p>الكاشير (Orders) عليه ضغط؟ في ثانية واحدة تشغّل نسخ زيادة:<br><code>docker-compose up --scale orders=5</code><br>وبكده بيبقى عندك 5 Containers بيشتغلوا في نفس الوقت!</p>
+                    </div>
+                    <div class="docker-benefit glass-card">
+                        <div class="benefit-icon" style="color:#8B5CF6;">🚀</div>
+                        <h4>Deploy بسرعة البرق</h4>
+                        <p>عملت تعديل في الـ Payment Service بس؟ ابني الـ Image الخاص بيها لوحده وانشره:<br><code>docker build -t payment .</code><br><code>docker push payment</code><br>بدون ما تمس باقي الخدمات.</p>
+                    </div>
+                    <div class="docker-benefit glass-card">
+                        <div class="benefit-icon" style="color:#F59E0B;">🌍</div>
+                        <h4>بيشتغل في أي مكان</h4>
+                        <p>اشتغل على الـ Mac، Staging على Ubuntu، Production على AWS. نفس الـ Image، نفس النتيجة. خلصت مشكلة "عندي بيشتغل"!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dockerfile Explained -->
+            <div class="dockerfile-section reveal" dir="ltr">
+                <h3 class="text-center" style="margin-bottom:8px; direction:rtl; font-size:1.8rem;">ازاي بنكتب <span class="glow-text">Dockerfile</span>؟</h3>
+                <p class="text-center subtitle" style="direction:rtl;">الـ Dockerfile هو "وصفة" بناء الـ Container. زي ما المطبخ عنده وصفة لكل أكلة.</p>
+                
+                <div class="dockerfile-tabs">
+                    <div class="df-tab-buttons">
+                        <button class="df-tab-btn active" onclick="showDfTab('df-node')">Node.js (Auth)</button>
+                        <button class="df-tab-btn" onclick="showDfTab('df-python')">Python (Inventory)</button>
+                        <button class="df-tab-btn" onclick="showDfTab('df-go')">Go (Payment)</button>
+                    </div>
+
+                    <div class="df-tab-content active" id="df-node">
+                        <div class="dockerfile-annotated">
+                            <div class="df-line">
+                                <code><span class="df-keyword">FROM</span> node:18-alpine</code>
+                                <span class="df-comment"># ← ابدأ من صورة Node.js جاهزة (زي قاعدة العجينة)</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">WORKDIR</span> /app</code>
+                                <span class="df-comment"># ← شغّل كل الأوامر جوا فولدر /app</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">COPY</span> package*.json ./</code>
+                                <span class="df-comment"># ← انسخ ملفات الـ packages الأول</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">RUN</span> npm install</code>
+                                <span class="df-comment"># ← ثبّت الـ packages جوا الـ Container</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">COPY</span> . .</code>
+                                <span class="df-comment"># ← انسخ باقي كود المشروع</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">EXPOSE</span> 3001</code>
+                                <span class="df-comment"># ← افتح البورت 3001 للعالم</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">CMD</span> ["node", "index.js"]</code>
+                                <span class="df-comment"># ← الأمر اللي هيشغّل السيرفر لما الـ Container يبدأ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="df-tab-content" id="df-python">
+                        <div class="dockerfile-annotated">
+                            <div class="df-line">
+                                <code><span class="df-keyword">FROM</span> python:3.11-slim</code>
+                                <span class="df-comment"># ← صورة Python رفيعة وخفيفة</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">WORKDIR</span> /app</code>
+                                <span class="df-comment"># ← فولدر الشغل</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">COPY</span> requirements.txt .</code>
+                                <span class="df-comment"># ← ملف المكتبات المطلوبة</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">RUN</span> pip install -r requirements.txt</code>
+                                <span class="df-comment"># ← ثبّت fastapi, sqlalchemy, إلخ</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">COPY</span> . .</code>
+                                <span class="df-comment"># ← انسخ كود Python</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">EXPOSE</span> 3003</code>
+                                <span class="df-comment"># ← بورت الـ Inventory Service</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">CMD</span> ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3003"]</code>
+                                <span class="df-comment"># ← شغّل FastAPI</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="df-tab-content" id="df-go">
+                        <div class="dockerfile-annotated">
+                            <div class="df-line">
+                                <code><span class="df-keyword">FROM</span> golang:1.21-alpine <span class="df-keyword">AS</span> builder</code>
+                                <span class="df-comment"># ← مرحلة البناء (Multi-stage build)</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">WORKDIR</span> /app</code>
+                                <span class="df-comment"># ← فولدر البناء</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">COPY</span> . .</code>
+                                <span class="df-comment"># ← انسخ كود Go</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">RUN</span> go build -o payment .</code>
+                                <span class="df-comment"># ← compile الكود لـ binary صغير</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">FROM</span> alpine:latest</code>
+                                <span class="df-comment"># ← مرحلة التشغيل (بدون Go، حجم أصغر بكتير!)</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">COPY</span> --from=builder /app/payment .</code>
+                                <span class="df-comment"># ← خد الـ binary بس من مرحلة البناء</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">EXPOSE</span> 3004</code>
+                                <span class="df-comment"># ← بورت الـ Payment Service</span>
+                            </div>
+                            <div class="df-line">
+                                <code><span class="df-keyword">CMD</span> ["./payment"]</code>
+                                <span class="df-comment"># ← شغّل الـ binary</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Docker commands cheatsheet -->
+            <div class="docker-commands reveal">
+                <h3 class="text-center" style="margin-bottom:8px; font-size:1.8rem;">أهم الأوامر اللي هتستخدمها 🛠️</h3>
+                <p class="text-center subtitle">الأوامر دي هتبقى صاحبتك كل يوم.</p>
+                <div class="commands-grid" dir="ltr">
+                    <div class="cmd-card">
+                        <div class="cmd-title">🚀 شغّل كل الخدمات</div>
+                        <code>docker-compose up -d</code>
+                        <div class="cmd-desc" dir="rtl">بيشغّل كل الـ Containers اللي في docker-compose.yml في الخلفية</div>
+                    </div>
+                    <div class="cmd-card">
+                        <div class="cmd-title">📜 شوف الـ Logs</div>
+                        <code>docker logs orders-service -f</code>
+                        <div class="cmd-desc" dir="rtl">بتشوف ما بيحصل جوا الـ Container لحظة بلحظة</div>
+                    </div>
+                    <div class="cmd-card">
+                        <div class="cmd-title">⚖️ وسّع الـ Orders</div>
+                        <code>docker-compose up --scale orders=3</code>
+                        <div class="cmd-desc" dir="rtl">شغّل 3 نسخ من Orders Service لو عليه ضغط</div>
+                    </div>
+                    <div class="cmd-card">
+                        <div class="cmd-title">🔨 ابني Image جديدة</div>
+                        <code>docker build -t auth-service .</code>
+                        <div class="cmd-desc" dir="rtl">ابني الـ Image بعد ما عملت تعديلات على الكود</div>
+                    </div>
+                    <div class="cmd-card">
+                        <div class="cmd-title">🔄 ابعت Image للسحابة</div>
+                        <code>docker push myapp/auth-service:v2</code>
+                        <div class="cmd-desc" dir="rtl">ارفع الـ Image على Docker Hub أو AWS ECR للـ Production</div>
+                    </div>
+                    <div class="cmd-card">
+                        <div class="cmd-title">⛔ وقّف كل حاجة</div>
+                        <code>docker-compose down</code>
+                        <div class="cmd-desc" dir="rtl">وقّف وامسح كل الـ Containers (البيانات بتتحفظ في الـ Volumes)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Docker workflow visual -->
+            <div class="docker-workflow reveal">
+                <h3 class="text-center" style="margin-bottom:32px; font-size:1.8rem;">رحلة الكود من جهازك للـ Production 🗺️</h3>
+                <div class="workflow-steps">
+                    <div class="wf-step">
+                        <div class="wf-icon">📝</div>
+                        <div class="wf-label">بتكتب كود</div>
+                        <div class="wf-sub">VSCode</div>
+                    </div>
+                    <div class="wf-arrow"><i class="fa-solid fa-arrow-left"></i></div>
+                    <div class="wf-step">
+                        <div class="wf-icon">🐳</div>
+                        <div class="wf-label">docker build</div>
+                        <div class="wf-sub">ابني الـ Image</div>
+                    </div>
+                    <div class="wf-arrow"><i class="fa-solid fa-arrow-left"></i></div>
+                    <div class="wf-step">
+                        <div class="wf-icon">☁️</div>
+                        <div class="wf-label">docker push</div>
+                        <div class="wf-sub">ارفع على Registry</div>
+                    </div>
+                    <div class="wf-arrow"><i class="fa-solid fa-arrow-left"></i></div>
+                    <div class="wf-step">
+                        <div class="wf-icon">🚀</div>
+                        <div class="wf-label">docker pull</div>
+                        <div class="wf-sub">السيرفر يحمّل</div>
+                    </div>
+                    <div class="wf-arrow"><i class="fa-solid fa-arrow-left"></i></div>
+                    <div class="wf-step">
+                        <div class="wf-icon">✅</div>
+                        <div class="wf-label">docker run</div>
+                        <div class="wf-sub">شغّل على Production</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- FAQ SECTION                                                   -->
+    <!-- ============================================================ -->
+    <section id="faq" class="section dark-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">🤔 الأسئلة الشائعة</span>
+                <h2>أسئلة كل developer بيسألها عن الـ <span class="glow-text">Microservices</span></h2>
+                <p>كل سؤال ممكن يخطر على بالك، هتلاقي إجابته هنا بالتفصيل الممل الجميل.</p>
+            </div>
+
+            <div class="faq-list reveal" id="faqList">
+
+                <!-- Q1 -->
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <div class="faq-q-left">
+                            <span class="faq-num">01</span>
+                            <span>هبدأ بالـ Microservices من أول مشروع؟</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>❌ <strong>لأ، ده غلط شائع جداً!</strong> الـ Microservices مش مناسبة للمشاريع الصغيرة أو الـ Startups في أولها. السبب؟</p>
+                            <ul>
+                                <li>الـ Microservices بتزود التعقيد بشكل هائل (Network calls، Distributed logging، Service discovery).</li>
+                                <li>لو مش عندك فريق كبير ومتخصص، هتتعب من الـ overhead بتاع الـ DevOps.</li>
+                                <li>شركات زي Amazon و Netflix نفسها <strong>بدأت Monolithic</strong> وبعدين انتقلت للـ Microservices لما كبرت.</li>
+                            </ul>
+                            <div class="faq-tip">
+                                <i class="fa-solid fa-lightbulb"></i>
+                                <strong>الـ Rule of Thumb:</strong> ابدأ Monolithic، لما الفريق يكبر وجزء من التطبيق يحتاج Scaling مستقل، وقتها افصله كـ Microservice.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <div class="faq-q-left">
+                            <span class="faq-num">02</span>
+                            <span>إزاي الـ Services بتعرف تتواصل مع بعض؟ في أكتر من طريقة؟</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>أيوه، في <strong>3 طرق رئيسية</strong> للتواصل:</p>
+                            <div class="faq-methods-grid">
+                                <div class="faq-method">
+                                    <div class="method-icon">🌐</div>
+                                    <h4>REST API (HTTP)</h4>
+                                    <p>الأشهر والأبسط. Service بتكلم التانية عن طريق HTTP request زي ما الموبايل بيكلم السيرفر. المشكلة: لو الـ Service التانية بطيئة، المستدعي هيفضل مستنيها.</p>
+                                    <code>GET http://inventory-service/api/stock/7</code>
+                                </div>
+                                <div class="faq-method">
+                                    <div class="method-icon">📨</div>
+                                    <h4>Message Queue (RabbitMQ / Kafka)</h4>
+                                    <p>Service بتبعت رسالة في "صندوق بريد" (Queue)، والـ Service التانية بتاخدها لما تجهز. الإرسال Async ومش محتاج رد فوري. الأمثل للإشعارات والأحداث.</p>
+                                    <code>queue.publish("order.created", orderData)</code>
+                                </div>
+                                <div class="faq-method">
+                                    <div class="method-icon">⚡</div>
+                                    <h4>gRPC</h4>
+                                    <p>بروتوكول من Google. أسرع بكتير من REST لأنه بيستخدم Binary format بدل JSON. بيستخدم بشكل كبير في internal service-to-service communication.</p>
+                                    <code>stub.CheckStock(request)</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <div class="faq-q-left">
+                            <span class="faq-num">03</span>
+                            <span>لو Service وقعت، إزاي بنتعامل معاها؟ (Fault Tolerance)</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>ده من أهم التحديات. في <strong>3 Patterns</strong> مشهورين لحل المشكلة دي:</p>
+                            <div class="faq-patterns">
+                                <div class="faq-pattern">
+                                    <span class="pattern-badge" style="background:rgba(239,68,68,.15);border-color:#ef4444;color:#ef4444;">Circuit Breaker</span>
+                                    <p>زي القاطع الكهربائي في بيتك. لو Service استدعيت 5 مرات وفشلت، الـ Circuit Breaker "يفتح" ويوقف الاستدعاء ويرجع response جاهز بدل ما يستنى ويعطّل التطبيق كله. بعد وقت معين، بيجرب يوصل تاني.</p>
+                                </div>
+                                <div class="faq-pattern">
+                                    <span class="pattern-badge" style="background:rgba(245,158,11,.15);border-color:#f59e0b;color:#f59e0b;">Retry with Backoff</span>
+                                    <p>لو الاستدعاء فشل، جرب تاني بعد ثانية، وتاني بعد 2 ثانية، وتاني بعد 4 ثانية. مش هتلحق على Service لقعانة ومش هتضيع وقت بدون داعي.</p>
+                                </div>
+                                <div class="faq-pattern">
+                                    <span class="pattern-badge" style="background:rgba(16,185,129,.15);border-color:#10b981;color:#10b981;">Fallback</span>
+                                    <p>لو Service المنتجات واقعة، ارجع بـ "cached data" قديم أو رسالة "المنتجات غير متاحة مؤقتاً" بدل ما التطبيق كله يقع. المستخدم هيحس بتأثير بسيط مش بـ Error ضخم.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <div class="faq-q-left">
+                            <span class="faq-num">04</span>
+                            <span>إزاي بنتابع الـ Logs لما عندنا 10 Services مختلفة؟</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>ده من أصعب حاجات الـ Microservices. تخيل إن request من المستخدم عدى على 5 Services ومش عارف في أنهي واحدة حصل الـ bug. الحل بيبقى <strong>Distributed Tracing</strong>.</p>
+                            <p>الفكرة: كل request بييجي بياخد <strong>Trace ID فريد</strong> (زي رقم الأوردر)، وكل service بتبعت اللوج بالـ ID ده لـ System مركزي.</p>
+                            <div class="faq-tools-grid">
+                                <div class="faq-tool">
+                                    <strong>📊 ELK Stack</strong>
+                                    <small>Elasticsearch + Logstash + Kibana — بيجمع اللوجات من كل الخدمات في مكان واحد</small>
+                                </div>
+                                <div class="faq-tool">
+                                    <strong>🔍 Jaeger / Zipkin</strong>
+                                    <small>بيرسم لك رحلة الـ Request خطوة بخطوة وبيقولك كل Service اخدت كام millisecond</small>
+                                </div>
+                                <div class="faq-tool">
+                                    <strong>📈 Grafana + Prometheus</strong>
+                                    <small>بيعمل Dashboards بتشوف فيها أداء كل Service لحظة بلحظة</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <div class="faq-q-left">
+                            <span class="faq-num">05</span>
+                            <span>إيه الفرق بين الـ API Gateway وعادي بيكلم الـ Service مباشرةً؟</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>الـ <strong>API Gateway</strong> هو "حارس البوابة" اللي الـ Client بيكلمه بدل ما يكلم كل Service على حدة. وده بيضيف:</p>
+                            <ul>
+                                <li>🔑 <strong>Authentication مركزي:</strong> بتتحقق من الـ Token مرة واحدة في الـ Gateway بدل ما كل Service تعمل نفس الكلام.</li>
+                                <li>⚖️ <strong>Load Balancing:</strong> لو عندك 3 نسخ من Orders Service، الـ Gateway هو اللي بيوزع الطلبات بينهم.</li>
+                                <li>🛡️ <strong>Rate Limiting:</strong> يمنع حد ما يعمل 1000 request في الثانية ويضرب السيرفر.</li>
+                                <li>📝 <strong>Logging مركزي:</strong> كل Request بيتسجل في مكان واحد.</li>
+                                <li>🔀 <strong>Routing:</strong> بيحول <code>/api/orders</code> لسيرفر الأوردرات و<code>/api/auth</code> لسيرفر الـ Auth.</li>
+                            </ul>
+                            <div class="faq-tip">
+                                <i class="fa-solid fa-star"></i>
+                                أشهر الـ API Gateways: <strong>NGINX، Kong، AWS API Gateway، Traefik</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <div class="faq-q-left">
+                            <span class="faq-num">06</span>
+                            <span>إزاي بنعمل Transaction واحدة بتاخد من 3 داتابيزات مختلفة؟</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>ده من أصعب الأسئلة في الـ Microservices! في الـ Monolithic، عندنا <strong>Database Transaction</strong> بتضمن إما كل حاجة تتعمل أو ما اتعملش حاجة (All or Nothing). في الـ Microservices ده صعب لأن كل خدمة ليها داتابيز مستقلة. الحل الشائع هو <strong>Saga Pattern</strong>:</p>
+                            <div class="faq-saga">
+                                <div class="saga-step success">
+                                    <span class="saga-num">1</span>
+                                    <div>
+                                        <strong>Orders Service:</strong> حفظت الأوردر بحالة "Pending"
+                                        <small>✅ نجح → ابعت event: order.created</small>
+                                    </div>
+                                </div>
+                                <div class="saga-arrow">↓</div>
+                                <div class="saga-step success">
+                                    <span class="saga-num">2</span>
+                                    <div>
+                                        <strong>Inventory Service:</strong> خصمت الكمية من المخزن
+                                        <small>✅ نجح → ابعت event: stock.reserved</small>
+                                    </div>
+                                </div>
+                                <div class="saga-arrow">↓</div>
+                                <div class="saga-step fail">
+                                    <span class="saga-num">3</span>
+                                    <div>
+                                        <strong>Payment Service:</strong> فشل الدفع! البطاقة مرفوضة
+                                        <small>❌ فشل → ابعت event: payment.failed</small>
+                                    </div>
+                                </div>
+                                <div class="saga-arrow">↓ (Compensating Transactions)</div>
+                                <div class="saga-step compensate">
+                                    <span class="saga-num">↩</span>
+                                    <div>
+                                        <strong>Inventory:</strong> رجّعت الكمية للمخزن تاني<br>
+                                        <strong>Orders:</strong> غيّرت حالة الأوردر لـ "Failed"
+                                        <small>↩ كل حاجة رجعت لحالتها الأصلية</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <div class="faq-q-left">
+                            <span class="faq-num">07</span>
+                            <span>Docker Compose بيكفي ولا لازم Kubernetes؟</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>الفرق جوهري:</p>
+                            <div class="faq-compare">
+                                <div class="compare-col bad-col-faq">
+                                    <h4>🐳 Docker Compose</h4>
+                                    <ul>
+                                        <li>مناسب للـ Development وTesting</li>
+                                        <li>بيشغّل Containers على <strong>جهاز واحد</strong> بس</li>
+                                        <li>مش بيعمل Auto-healing (لو Container وقع مش هيرجعه)</li>
+                                        <li>الـ Scaling يدوي وبدائي</li>
+                                        <li>سهل وبسيط للبداية ✅</li>
+                                    </ul>
+                                </div>
+                                <div class="compare-col good-col-faq">
+                                    <h4>☸️ Kubernetes (K8s)</h4>
+                                    <ul>
+                                        <li>مناسب للـ Production الجاد</li>
+                                        <li>بيوزع الـ Containers على <strong>آلاف الأجهزة</strong></li>
+                                        <li>Auto-healing: لو Container وقع، K8s بيعيد تشغيله تلقائياً</li>
+                                        <li>Auto-scaling: الضغط زاد؟ بيفتح Containers جديدة لوحده</li>
+                                        <li>معقد ومحتاج تعلم منفصل</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="faq-tip">
+                                <i class="fa-solid fa-map-signs"></i>
+                                <strong>الخلاصة:</strong> ابدأ بـ Docker Compose. لما تروح للـ Production الجاد وعندك ملايين users، وقتها انتقل لـ Kubernetes أو استخدم managed service زي <strong>AWS ECS / Google Cloud Run</strong>.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q8 -->
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <div class="faq-q-left">
+                            <span class="faq-num">08</span>
+                            <span>إزاي بنعمل Testing للـ Microservices؟</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>التست في الـ Microservices على <strong>4 مستويات:</strong></p>
+                            <div class="faq-test-levels">
+                                <div class="test-level" style="border-color:#3b82f6">
+                                    <div class="test-level-header">
+                                        <span class="test-badge" style="background:rgba(59,130,246,.2);color:#3b82f6">Unit Tests</span>
+                                        <span class="test-scope">بتختبر Function واحدة</span>
+                                    </div>
+                                    <p>تختبر كل function في العزل الكامل. سريع جداً وبيشتغل بدون داتابيز أو Network.</p>
+                                    <code>expect(calculateTotal(items)).toBe(500)</code>
+                                </div>
+                                <div class="test-level" style="border-color:#8b5cf6">
+                                    <div class="test-level-header">
+                                        <span class="test-badge" style="background:rgba(139,92,246,.2);color:#8b5cf6">Integration Tests</span>
+                                        <span class="test-scope">بتختبر Service كاملة مع داتابيزها</span>
+                                    </div>
+                                    <p>بتشغّل الـ Service مع الداتابيز الحقيقية (أو test database) وبتختبر الـ API Endpoints.</p>
+                                    <code>POST /api/orders → expect(201, {orderId})</code>
+                                </div>
+                                <div class="test-level" style="border-color:#f59e0b">
+                                    <div class="test-level-header">
+                                        <span class="test-badge" style="background:rgba(245,158,11,.2);color:#f59e0b">Contract Tests</span>
+                                        <span class="test-scope">بتختبر التواصل بين الخدمات</span>
+                                    </div>
+                                    <p>بتتأكد إن لو Orders Service بتبعت Request بشكل معين، الـ Inventory بتفهمه صح. أداة مشهورة: <strong>Pact</strong>.</p>
+                                </div>
+                                <div class="test-level" style="border-color:#10b981">
+                                    <div class="test-level-header">
+                                        <span class="test-badge" style="background:rgba(16,185,129,.2);color:#10b981">E2E Tests</span>
+                                        <span class="test-scope">بتختبر رحلة المستخدم كاملة</span>
+                                    </div>
+                                    <p>بتشغّل <strong>كل الخدمات مع بعض</strong> وبتعمل طلب شراء كامل من الأول للآخر وبتتأكد إن كل حاجة شغالة. بطيء لكن بيكشف مشاكل التكامل.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q9 -->
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <div class="faq-q-left">
+                            <span class="faq-num">09</span>
+                            <span>إزاي بنعمل الـ Security في الـ Microservices؟</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>الـ Security في الـ Microservices بيتعمل على <strong>مستويين:</strong></p>
+                            <div class="faq-security-grid">
+                                <div class="security-card">
+                                    <div class="security-icon">🛡️</div>
+                                    <h4>External Security (Client → Gateway)</h4>
+                                    <ul>
+                                        <li><strong>JWT Token:</strong> Client بيبعت Token مع كل Request، الـ Gateway بيتحقق منه قبل ما يوصل لأي خدمة.</li>
+                                        <li><strong>HTTPS:</strong> كل الـ Traffic مشفّر.</li>
+                                        <li><strong>Rate Limiting:</strong> الـ Gateway بيمنع Brute Force attacks.</li>
+                                    </ul>
+                                </div>
+                                <div class="security-card">
+                                    <div class="security-icon">🔐</div>
+                                    <h4>Internal Security (Service → Service)</h4>
+                                    <ul>
+                                        <li><strong>mTLS:</strong> كل خدمة بيكون عندها Certificate وبتتحقق من هوية الخدمة التانية.</li>
+                                        <li><strong>Service Mesh (Istio):</strong> بيعمل Encryption تلقائي لكل الـ internal communication.</li>
+                                        <li><strong>Network Policies:</strong> تحدد إن Orders Service بتكلم Inventory بس، ومش بتكلم الـ DB مباشرةً.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q10 -->
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <div class="faq-q-left">
+                            <span class="faq-num">10</span>
+                            <span>شركات زي Netflix و Amazon بتعمل Microservices إزاي فعلاً؟</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>أرقام حقيقية هتبهرك:</p>
+                            <div class="faq-companies">
+                                <div class="company-card">
+                                    <div class="company-logo">🎬</div>
+                                    <h4>Netflix</h4>
+                                    <ul>
+                                        <li>أكتر من <strong>700 Microservice</strong></li>
+                                        <li>بيعملوا أكتر من <strong>1 مليون deployment</strong> في السنة</li>
+                                        <li>بيستخدموا <strong>Chaos Engineering</strong> — بيطفوا Services عمداً في Production عشان يتأكدوا إن النظام بيتحمل!</li>
+                                        <li>بيستخدموا أداتهم الخاصة <strong>Hystrix</strong> للـ Circuit Breaker</li>
+                                    </ul>
+                                </div>
+                                <div class="company-card">
+                                    <div class="company-logo">🛒</div>
+                                    <h4>Amazon</h4>
+                                    <ul>
+                                        <li>بدأوا Monolithic في التسعينيات</li>
+                                        <li>انتقلوا للـ Microservices في بداية الألفينيات</li>
+                                        <li>كل Service يملكها فريق صغير (<strong>Two-Pizza Team</strong> — فريق يتغذى على بيتزتين!)</li>
+                                        <li>الـ Microservices architecture بتاعتهم أدى لاختراع <strong>AWS</strong> نفسه — لأنهم احتاجوا infrastructure مرن!</li>
+                                    </ul>
+                                </div>
+                                <div class="company-card">
+                                    <div class="company-logo">🚕</div>
+                                    <h4>Uber</h4>
+                                    <ul>
+                                        <li>بدأوا بـ Monolithic بلغة Python</li>
+                                        <li>انتقلوا لأكتر من <strong>2000 Microservice</strong></li>
+                                        <li>بعدين اكتشفوا إن ده كتير جداً وبدأوا يدمجوا بعضهم! (<strong>Macro-services</strong>)</li>
+                                        <li>الدرس: الـ Microservices مش "أكتر = أحسن"</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="faq-tip">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                                <strong>الخلاصة الذهبية:</strong> حتى الشركات الكبيرة دي غلطت وتعلمت. مفيش "right answer" واحد — الصح هو اللي يناسب حجم مشروعك وفريقك.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- end faq-list -->
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- FOOTER                                                        -->
+    <!-- ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fa-solid fa-cubes"></i>
+                    <span>Microservices</span>
+                </div>
+                <p>البرمجة مش صعبة لو فهمنا الفكرة الأساسية <i class="fa-solid fa-lightbulb text-yellow"></i></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Prism JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
